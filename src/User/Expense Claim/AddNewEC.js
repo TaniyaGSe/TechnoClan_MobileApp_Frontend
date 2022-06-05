@@ -5,16 +5,15 @@ import {
   Text,
   View,
   Button,
-  Alert,
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+//import { RadioButton } from 'react-native-paper';
 import RadioForm from 'react-native-simple-radio-button';
 
 export default function AddNewE_Claim({navigation}){
-
   const [chosenOption, setChosenOption] = useState('apple'); //will store our current user options
   const options = [
-    { label: 'Billable', value: 'Billable'},
+    { label: 'Billable', value: 'Billable' },
     { label: 'Non-billable', value: 'Non-billable' },
     { label: 'Fixed-price', value: 'Fixed-price' },
   ]; 
@@ -56,15 +55,16 @@ export default function AddNewE_Claim({navigation}){
           Billability
         </Text>
         
-        <View style={styles.radio}>
         <RadioForm 
         radio_props={options}
         initial={0} 
+        onPress={(value) => {
+          setChosenOption(value);
+        }} 
         />
-        </View>
 
         <Button onPress={()=>navigation.navigate('Next')} 
-        title = "Next"
+        title="Next"
         color="#e63909"
         />
       </View>
@@ -74,7 +74,6 @@ export default function AddNewE_Claim({navigation}){
   const styles = StyleSheet.create({
     body:{
       flex:1,
-      backgroundColor:'#ffffff'
     },
     text:{
       color:'#000000',
@@ -85,13 +84,10 @@ export default function AddNewE_Claim({navigation}){
     input:{
       height:40,
       width:200,
-      borderWidth:5,
+      borderWidth:1,
       borderColor:'#555',
       borderRadius:5,
       textAlign:'center',
     },
-    radio:{
-      backgroundColor:'#ffffff',
-    }
   })
   

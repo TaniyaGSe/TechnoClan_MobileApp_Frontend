@@ -47,7 +47,7 @@ export default function AddNewE_Claim2({navigation}){
         maxLength={30}
         />
         <Text style ={styles.text}>
-          Amount(Rs)
+          Amount(Rs..)
         </Text>
         <TextInput style={styles.input} 
         maxLength={30}
