@@ -109,13 +109,10 @@ function App(){
         component={AddNewE_Claim2}
         />
         <Stack.Screen
-        name="Back"
-        component={AddNewE_Claim}
+        name="PreviousClaims"
+        component={ViewPE_claims}
         />
-        <Stack.Screen
-        name="Submit"
-        component={SelectingPage}
-        />
+        
       </Stack.Navigator>
     </NavigationContainer>
   )

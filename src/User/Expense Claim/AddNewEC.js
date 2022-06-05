@@ -9,6 +9,7 @@ import {
 import { TextInput } from 'react-native-gesture-handler';
 //import { RadioButton } from 'react-native-paper';
 import RadioForm from 'react-native-simple-radio-button';
+import { PushNotification } from 'react-native-push-notification';
 
 export default function AddNewE_Claim({navigation}){
   const [chosenOption, setChosenOption] = useState('apple'); //will store our current user options
@@ -17,14 +18,20 @@ export default function AddNewE_Claim({navigation}){
     { label: 'Non-billable', value: 'Non-billable' },
     { label: 'Fixed-price', value: 'Fixed-price' },
   ]; 
+
+  const[bu_dept,setBu_Dept] = useState('');
+
+
     return(
       <View style={styles.body}>
         <Text style ={styles.text}>
           BU/Dept
         </Text>
         <TextInput style={styles.input} 
+        value={bu_dept}
         placeholder='e.g.Accelerite BU'
         maxLength={30}
+        onChangeText={(value)=>setBu_Dept(value)}
         />
         <Text style ={styles.text}>
           Project

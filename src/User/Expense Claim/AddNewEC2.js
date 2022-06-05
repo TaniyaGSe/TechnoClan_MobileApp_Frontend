@@ -3,11 +3,13 @@ import {
   StyleSheet,
   Text,
   View,
-  Pressable,
   Button,
+  TouchableOpacity,
 } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import { TextInput} from 'react-native-gesture-handler';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+// import Entypo from 'react-native-vector-icons/Entypo';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
 export default function AddNewE_Claim2({navigation}){
 
@@ -28,6 +30,19 @@ export default function AddNewE_Claim2({navigation}){
   
     return(
       <View style={styles.body}>
+
+        <TouchableOpacity style={styles.button} 
+        onPress={()=>{
+          navigation.navigate('PreviousClaims');
+        }}
+        >
+          <FontAwesome5
+          name={'plus'}
+          size={20}
+          color={'#ffffff'}
+          />
+        </TouchableOpacity>
+
         <Text style ={styles.text}>
           Date
         </Text>
@@ -61,14 +76,7 @@ export default function AddNewE_Claim2({navigation}){
         <Text style ={styles.text}>
         Payment will be made only against valid original bills and receipt
         </Text>
-        <Button onPress={()=>navigation.navigate('Back')} 
-         color="#e63909"
-         title="Back"
-        />
-        <Button onPress={()=>navigation.navigate('Submit')} 
-         color="#e63909"
-         title="Submit"
-        />
+    
       </View>
     )
   }
@@ -90,6 +98,17 @@ export default function AddNewE_Claim2({navigation}){
       borderColor:'#555',
       borderRadius:5,
       textAlign:'center',
+    },
+    button:{
+      width:60,
+      height:60,
+      borderRadius:30,
+      backgroundColor:'#e63909',
+      justifyContent:'center',
+      position:'absolute',
+      bottom:10,
+      right:5,
+      elevation:5,
     },
   })
   
