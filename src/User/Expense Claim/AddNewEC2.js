@@ -31,18 +31,6 @@ export default function AddNewE_Claim2({navigation}){
     return(
       <View style={styles.body}>
 
-        <TouchableOpacity style={styles.button} 
-        onPress={()=>{
-          navigation.navigate('PreviousClaims');
-        }}
-        >
-          <FontAwesome5
-          name={'plus'}
-          size={20}
-          color={'#ffffff'}
-          />
-        </TouchableOpacity>
-
         <Text style ={styles.text}>
           Date
         </Text>
@@ -99,16 +87,6 @@ export default function AddNewE_Claim2({navigation}){
       borderRadius:5,
       textAlign:'center',
     },
-    button:{
-      width:60,
-      height:60,
-      borderRadius:30,
-      backgroundColor:'#e63909',
-      justifyContent:'center',
-      position:'absolute',
-      bottom:10,
-      right:5,
-      elevation:5,
-    },
+    
   })
   

@@ -5,7 +5,6 @@ import Expense_Claim from './User/Expense Claim/ExpenseClaim';
 import OPD from './User/OPD/OPD';
 import RAndR from './User/R&R/R&R';
 import AddNewE_Claim from './User/Expense Claim/AddNewEC';
-import ViewPE_claims from './User/Expense Claim/PreviousEC';
 import ViewP_OPD from './User/OPD/PreviousOPD';
 import Add_OPD from './User/OPD/AddNewOPD';
 import ViewP_RAndR from './User/R&R/PreviousR&R';
@@ -45,13 +44,13 @@ const onPressHandler3= () =>{
       title="Expense Claim"
       />
       <Button
-      onPress={onPressHandler1}
+      onPress={onPressHandler2}
       color="#e63909"
       title="OPD"
       />
 
       <Button 
-      onPress={onPressHandler1}
+      onPress={onPressHandler3}
       color="#e63909"
       title="Reward and Recognition"
       />
@@ -84,10 +83,7 @@ function App(){
         name="Add a new claim"
         component={AddNewE_Claim}
         />
-        <Stack.Screen
-        name="View previous claims"
-        component={ViewPE_claims}
-        />
+    
         <Stack.Screen
         name="View claimed OPDs"
         component={ViewP_OPD}
@@ -107,10 +103,6 @@ function App(){
          <Stack.Screen
         name="Next"
         component={AddNewE_Claim2}
-        />
-        <Stack.Screen
-        name="PreviousClaims"
-        component={ViewPE_claims}
         />
         
       </Stack.Navigator>

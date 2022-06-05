@@ -1,30 +1,28 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import React , {useState} from 'react'; //usestate for hooks
 import {
   StyleSheet,
-  Text,
   View,
   Button,
-  Image,
-  Pressable,
+  TouchableOpacity,
 } from 'react-native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
-const Stack = createStackNavigator();
 
 export default function OPD({navigation}){
+
     return(
       <View style={styles.body}>
-        <Pressable onPress={()=>navigation.navigate('Claim a new OPD')} style={({pressed})=>({backgroundColor:pressed ? '#a8620d':'#e63909'})}>
-           <Text style={styles.text}>
-             Add a new expense claim
-           </Text>
-        </Pressable>
-        <Pressable onPress={()=>navigation.navigate('View claimed OPDs')} style={({pressed})=>({backgroundColor:pressed ? '#a8620d':'#e63909'})}>
-           <Text style={styles.text}>
-             View previous claims
-           </Text>
-        </Pressable>
+         <TouchableOpacity style={styles.button} 
+        onPress={()=>{
+          navigation.navigate('Claim a new OPD');
+        }}
+        >
+          <FontAwesome5 style={styles.plus}
+          name={'plus'}
+          size={30}
+          color={'#ffffff'}
+          />
+        </TouchableOpacity>
       </View>
     )
   }
@@ -39,6 +37,23 @@ export default function OPD({navigation}){
       fontSize:40,
       fontWeight:'bold',
       margin:10,
+      color:'#000000',
+    },
+    button:{
+      width:60,
+      height:60,
+      borderRadius:30,
+      backgroundColor:'#e63909',
+      justifyContent:'center',
+      position:'absolute',
+      bottom:25,
+      right:5,
+      elevation:5,
+    },
+    plus:{
+      left:15,
     }
   })
+
+
   
