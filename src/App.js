@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React , {useState} from 'react'; //usestate for hooks
 import Expense_Claim from './User/Expense Claim/ExpenseClaim';
 import OPD from './User/OPD/OPD';
@@ -15,10 +16,10 @@ import {
   Text,
   View,
   Button,
-  Image,
 } from 'react-native';
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 function SelectingPage({navigation}){
 
@@ -35,7 +36,7 @@ const onPressHandler3= () =>{
   return(
     <View style={styles.body}>
       <Text style={styles.text}>
-        Persistent System
+        Persistent Systems
       </Text>
       <View style={styles.button}>
       <Button
@@ -62,7 +63,13 @@ const onPressHandler3= () =>{
 function App(){
   return(
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{
+        headerStyle:{
+          backgroundColor:'#e63909'
+        },
+        //headerShown: false,
+        headerTintColor:'#ffffff'
+      }}>
         <Stack.Screen
         name="Welcome"
         component={SelectingPage}
@@ -83,7 +90,10 @@ function App(){
         name="Add a new claim"
         component={AddNewE_Claim}
         />
-    
+         <Stack.Screen
+        name="View the new claim"
+        component={AddNewE_Claim2}
+        />
         <Stack.Screen
         name="View claimed OPDs"
         component={ViewP_OPD}
@@ -104,7 +114,6 @@ function App(){
         name="Next"
         component={AddNewE_Claim2}
         />
-        
       </Stack.Navigator>
     </NavigationContainer>
   )

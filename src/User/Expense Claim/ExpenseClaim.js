@@ -2,14 +2,16 @@ import React , {useState} from 'react'; //usestate for hooks
 import {
   StyleSheet,
   View,
-  Button,
   TouchableOpacity,
+  Text,
 } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 export default function Expense_Claim({navigation}){
 
+  const Tab = createBottomTabNavigator();
     return(
       <View style={styles.body}>
          <TouchableOpacity style={styles.button} 
@@ -30,14 +32,6 @@ export default function Expense_Claim({navigation}){
   const styles = StyleSheet.create({
     body:{
       flex:1,
-      justifyContent:'center',
-      alignItems:'center',
-    },
-    text:{
-      fontSize:40,
-      fontWeight:'bold',
-      margin:10,
-      color:'#000000',
     },
     button:{
       width:60,
@@ -52,6 +46,10 @@ export default function Expense_Claim({navigation}){
     },
     plus:{
       left:15,
+    },
+    input1:{
+      fontSize:20,
+
     }
   })
 
