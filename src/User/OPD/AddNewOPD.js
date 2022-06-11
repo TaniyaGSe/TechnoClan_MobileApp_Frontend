@@ -1,20 +1,41 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import React , {useState} from 'react'; //usestate for hooks
 import {
   StyleSheet,
   Text,
   View,
   Button,
-  Image,
-  Pressable,
 } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
 
-const Stack = createStackNavigator();
 
-export default function Add_OPD(){
+
+export default function Add_OPD({navigation}){
+
+  const [description,setDescriptiont] = useState("");
+  const [ receiptNo,setReceiptNo]=useState("");
+  const [ amount,setAmount]=useState("");
+
     return(
       <View style={styles.body}>
+        <TextInput style={styles.input}
+        placeholder='Description'
+        value={description}
+        onChangeText={(text)=>setDescriptiont(text)}
+        />
+        <TextInput style={styles.input}
+        placeholder='Receipt Not'
+        value={receiptNo}
+        onChangeText={(text)=>setReceiptNo(text)}
+        />
+         <TextInput style={styles.input}
+        placeholder='Amount'
+        value={amount}
+        onChangeText={(text)=>setAmount(text)}
+        />
+        <Button
+        title='Submit'
+        onPress={()=>navigation.navigate('OPD')}
+        />
       </View>
     )
   }
@@ -25,9 +46,4 @@ export default function Add_OPD(){
       justifyContent:'center',
       alignItems:'center',
     },
-    text:{
-      fontSize:40,
-      fontWeight:'bold',
-      margin:10,
-    }
   })

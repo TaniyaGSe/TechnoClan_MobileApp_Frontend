@@ -1,97 +1,114 @@
-import { createStackNavigator } from '@react-navigation/stack';
 import React , {useState} from 'react'; //usestate for hooks
 import {
   StyleSheet,
   Text,
   View,
   Button,
-  Alert,
+  Keyboard,
+  TouchableWithoutFeedback
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import RadioForm from 'react-native-simple-radio-button';
+import {Picker} from "@react-native-picker/picker";
+import { useNavigation } from '@react-navigation/native'; 
 
-export default function AddNewE_Claim({navigation}){
+export default function AddNewE_Claim(){
 
-  const [chosenOption, setChosenOption] = useState('apple'); //will store our current user options
-  const options = [
-    { label: 'Billable', value: 'Billable'},
-    { label: 'Non-billable', value: 'Non-billable' },
-    { label: 'Fixed-price', value: 'Fixed-price' },
-  ]; 
+  const DissmissKeyboard = ({children}) =>(
+    <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
+      {children}
+    </TouchableWithoutFeedback>
+  );
+
+  const [bu_dept,setBu_Dept] = useState("");
+  const [ project,setProject]=useState("");
+  const [ extension_No,setExtension_No]=useState("");
+  const [ customer,setCustomer]=useState("");
+  const [ location,setLocation]=useState("");
+  const [ particulars,setParticulars]=useState("");
+  const [ amount,setAmount]=useState("");
+
+  const [Enable , setEnable]  = useState("Billability");
+
+  const navigation=useNavigation();
+
+  const submit = () => {
+    navigation.navigate("View the new claim",{
+      buDept:bu_dept,
+      project:project,
+      extensionNo:extension_No,
+      customer:customer,
+      location:location,
+      particulars:particulars,
+      amount:amount,
+    })
+  }
+
     return(
+      <DissmissKeyboard>
       <View style={styles.body}>
-        <Text style ={styles.text}>
-          BU/Dept
-        </Text>
-        <TextInput style={styles.input} 
-        placeholder='e.g.Accelerite BU'
-        maxLength={30}
+        <TextInput style={styles.input}
+        placeholder='BU/Dept'
+        value={bu_dept}
+        onChangeText={(text)=>setBu_Dept(text)}
         />
-        <Text style ={styles.text}>
-          Project
-        </Text>
-        <TextInput style={styles.input} 
-        placeholder='e.g.Telia 2'
-        maxLength={30}
+        <TextInput style={styles.input}
+        placeholder='Project'
+        value={project}
+        onChangeText={(text)=>setProject(text)}
         />
-        <Text style ={styles.text}>
-          Extension No
-        </Text>
-        <TextInput style={styles.input} 
-        maxLength={30}
+        <TextInput style={styles.input}
+        placeholder='Extension No'
+        value={extension_No}
+        onChangeText={(text)=>setExtension_No(text)}
         />
-        <Text style ={styles.text}>
-          Customer
-        </Text>
-        <TextInput style={styles.input} 
-        maxLength={30}
+        <TextInput style={styles.input}
+        placeholder='Customer'
+        value={customer}
+        onChangeText={(text)=>setCustomer(text)}
         />
-        <Text style ={styles.text}>
-          Location
-        </Text>
-        <TextInput style={styles.input} 
-        maxLength={30}
+        <TextInput style={styles.input}
+        placeholder='Location'
+        value={location}
+        onChangeText={(text)=>setLocation(text)}
         />
-        <Text style ={styles.text}>
-          Billability
-        </Text>
-        
-        <View style={styles.radio}>
-        <RadioForm 
-        radio_props={options}
-        initial={0} 
+        <TextInput style={styles.input}
+        placeholder='Particulars'
+        value={particulars}
+        onChangeText={(text)=>setParticulars(text)}
         />
-        </View>
-
-        <Button onPress={()=>navigation.navigate('Next')} 
-        title = "Next"
-        color="#e63909"
+        <TextInput style={styles.input}
+        placeholder='Amount'
+        value={amount}
+        onChangeText={(text)=>setAmount(text)}
+        />
+        <Picker
+          selectedValue={Enable}
+          style={{ height: 50, width: 200 }}
+          mode={"dialog"}
+          onValueChange={(itemValue) => setEnable(itemValue)}
+         >
+        <Picker.Item label="Billable" value="Bill" />
+        <Picker.Item label="Non-Billable" value="Non" />
+        <Picker.Item label="Fixed-Price" value="Fixed" />
+        </Picker>
+      
+        <Button style={styles.button}
+         title='Next'
+         onPress={submit}
+         color="#e63909"
         />
       </View>
-    )
+      </DissmissKeyboard>
+    );
   }
 
   const styles = StyleSheet.create({
-    body:{
-      flex:1,
-      backgroundColor:'#ffffff'
-    },
-    text:{
-      color:'#000000',
-      fontSize:15,
-      fontWeight:'bold',
-      margin:10,
-    },
+  
     input:{
-      height:40,
-      width:200,
-      borderWidth:5,
-      borderColor:'#555',
-      borderRadius:5,
-      textAlign:'center',
+      height: 40,
+      margin: 12,
+      borderWidth: 1,
+      padding: 10,
     },
-    radio:{
-      backgroundColor:'#ffffff',
-    }
   })
   

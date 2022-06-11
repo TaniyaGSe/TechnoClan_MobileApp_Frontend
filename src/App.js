@@ -1,11 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React , {useState} from 'react'; //usestate for hooks
 import Expense_Claim from './User/Expense Claim/ExpenseClaim';
 import OPD from './User/OPD/OPD';
 import RAndR from './User/R&R/R&R';
 import AddNewE_Claim from './User/Expense Claim/AddNewEC';
-import ViewPE_claims from './User/Expense Claim/PreviousEC';
 import ViewP_OPD from './User/OPD/PreviousOPD';
 import Add_OPD from './User/OPD/AddNewOPD';
 import ViewP_RAndR from './User/R&R/PreviousR&R';
@@ -16,10 +16,10 @@ import {
   Text,
   View,
   Button,
-  Image,
 } from 'react-native';
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 function SelectingPage({navigation}){
 
@@ -36,7 +36,7 @@ const onPressHandler3= () =>{
   return(
     <View style={styles.body}>
       <Text style={styles.text}>
-        Persistent System
+        Persistent Systems
       </Text>
       <View style={styles.button}>
       <Button
@@ -45,13 +45,13 @@ const onPressHandler3= () =>{
       title="Expense Claim"
       />
       <Button
-      onPress={onPressHandler1}
+      onPress={onPressHandler2}
       color="#e63909"
       title="OPD"
       />
 
       <Button 
-      onPress={onPressHandler1}
+      onPress={onPressHandler3}
       color="#e63909"
       title="Reward and Recognition"
       />
@@ -63,7 +63,13 @@ const onPressHandler3= () =>{
 function App(){
   return(
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{
+        headerStyle:{
+          backgroundColor:'#e63909'
+        },
+        //headerShown: false,
+        headerTintColor:'#ffffff'
+      }}>
         <Stack.Screen
         name="Welcome"
         component={SelectingPage}
@@ -84,9 +90,9 @@ function App(){
         name="Add a new claim"
         component={AddNewE_Claim}
         />
-        <Stack.Screen
-        name="View previous claims"
-        component={ViewPE_claims}
+         <Stack.Screen
+        name="View the new claim"
+        component={AddNewE_Claim2}
         />
         <Stack.Screen
         name="View claimed OPDs"
@@ -107,14 +113,6 @@ function App(){
          <Stack.Screen
         name="Next"
         component={AddNewE_Claim2}
-        />
-        <Stack.Screen
-        name="Back"
-        component={AddNewE_Claim}
-        />
-        <Stack.Screen
-        name="Submit"
-        component={SelectingPage}
         />
       </Stack.Navigator>
     </NavigationContainer>

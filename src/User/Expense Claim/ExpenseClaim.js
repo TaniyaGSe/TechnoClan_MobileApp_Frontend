@@ -1,28 +1,30 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import React , {useState} from 'react'; //usestate for hooks
 import {
   StyleSheet,
-  Text,
   View,
-  Button,
-  Image,
+  TouchableOpacity,
+  Text,
 } from 'react-native';
-
-
+import { useRoute } from '@react-navigation/native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 export default function Expense_Claim({navigation}){
 
+  const Tab = createBottomTabNavigator();
     return(
       <View style={styles.body}>
-        <View style={styles.button}>
-        <Button onPress={()=>navigation.navigate('Add a new claim')} 
-         color="#e63909"
-         title="Add a new expense claim"/>
-        <Button onPress={()=>navigation.navigate('View previous claims')} 
-         color="#e63909"
-         title="View previous claims"/>
-        </View>
+         <TouchableOpacity style={styles.button} 
+        onPress={()=>{
+          navigation.navigate('Add a new claim');
+        }}
+        >
+          <FontAwesome5 style={styles.plus}
+          name={'plus'}
+          size={30}
+          color={'#ffffff'}
+          />
+        </TouchableOpacity>
       </View>
     )
   }
@@ -30,15 +32,24 @@ export default function Expense_Claim({navigation}){
   const styles = StyleSheet.create({
     body:{
       flex:1,
-      justifyContent:'center',
-      alignItems:'center',
-      backgroundColor:'#000000',
     },
-    text:{
-      fontSize:40,
-      fontWeight:'bold',
-      margin:10,
-      color:'#ffffff',
+    button:{
+      width:60,
+      height:60,
+      borderRadius:30,
+      backgroundColor:'#e63909',
+      justifyContent:'center',
+      position:'absolute',
+      bottom:25,
+      right:5,
+      elevation:5,
+    },
+    plus:{
+      left:15,
+    },
+    input1:{
+      fontSize:20,
+
     }
   })
 
