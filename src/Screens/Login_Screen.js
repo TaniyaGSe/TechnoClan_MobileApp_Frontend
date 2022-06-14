@@ -4,13 +4,21 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
+import axios from 'axios'
+
 export default function LoginScreen({navigation}) {
+
+    let [quote, setQuote] = React.useState('')
+    let [source, setSource] = React.useState('')
   
     const onPressHandlerSignUp = () => {
-      navigation.navigate('Screen-SignUp');
+            
+        navigation.navigate('Screen-SignUp');
+      
     }
 
     const onPressHandlerSignIn = () => {
+        
         navigation.navigate('Screen-Welcome');
     }
 
@@ -22,7 +30,7 @@ export default function LoginScreen({navigation}) {
       <View style={styles.body}>
         
         <View style={styles.view}>
-            <Text style={styles.text}>Persistent System Lanka (PVT) LTD</Text>
+            <Text style={styles.topic}>Persistent System Lanka (PVT) LTD</Text>
         </View>
 
         <View style={styles.view}>
@@ -71,10 +79,24 @@ export default function LoginScreen({navigation}) {
         </View>
 
         <View style={styles.view}>
+            <View>
             <Text style={styles.text}>Haven’t signed up yet?</Text>
+            </View>
+
+            <View style={styles.view}>      
+                <Pressable
+                    onPress={onPressHandlerSignUp}
+                    style={({ pressed }) => ({ 
+                        backgroundColor: pressed ? '#ddd' : '#fff' 
+                    })}
+                >
+                    <Text style={styles.text}>Sign Up</Text>
+                </Pressable>
+            </View>
+            
         </View>
 
-        <View style={styles.view}>      
+        {/* <View style={styles.view}>      
             <Pressable
                 onPress={onPressHandlerSignUp}
                 style={({ pressed }) => ({ 
@@ -83,7 +105,7 @@ export default function LoginScreen({navigation}) {
             >
                 <Text style={styles.text}>Sign Up</Text>
             </Pressable>
-        </View>
+        </View> */}
 
       </View>
     );
@@ -102,6 +124,13 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       margin: 10,
       color: '#FA6106'
+    },
+    topic: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        margin: 10,
+        color: '#FA6106',
+
     },
     view:{
         margin:10,

@@ -3,93 +3,55 @@ import { View, Text, StyleSheet,Pressable,TextInput,Button } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import HomeScreen from './Home_Screen';
+import ExpenseClaim from './Claims/Expense';
+import OPDClaim from './Claims/OPD';
+import RandRClaim from './Claims/RandR';
+import LoginScreen from './Login_Screen';
+
+
+const Stack = createNativeStackNavigator();
 
 export default function WelcomeScreen({navigation}) {
-    
-    const onPressHandlerExpense = () => {
-        navigation.navigate('Screen-Login');
-      }
-  
-    const onPressHandlerOPD = () => {
-      navigation.navigate('Screen-SignUp');
-    }
-
-    const onPressHandlerRandR = () => {
-        navigation.navigate('Screen-SignUp');
-      }
-  
     return (
-        <View style={styles.body}>
+        <NavigationContainer independent={true}>
+  
+        <Stack.Navigator
+        screenOptions = {{
+          header: () => null
+        }}
+        >
+            <Stack.Screen 
+                name="Home" 
+                component={HomeScreen} 
+            />
+  
+            <Stack.Screen 
+                name="Screen-Exp" 
+                component={ExpenseClaim} 
+            />
+  
+            <Stack.Screen 
+                name="Screen-OPD" 
+                component={OPDClaim} 
+            />
+  
+            <Stack.Screen 
+                name="Screen-RandR" 
+                component={RandRClaim} 
+            />
 
-            <View style={styles.view}>
-                <Text style={styles.text}>Persistent System Lanka (PVT) LTD</Text>
-            </View>
-
-            <View style={styles.view}>
-                <Text style={styles.text}>Dashboard</Text>
-            </View>    
-
-
-            <View style={styles.view}>
-                <Pressable
-                    onPress={onPressHandlerExpense}
-                    style={({ pressed }) => ({ 
-                        backgroundColor: pressed ? '#ddd' : '#fff' 
-                    })}
-            >
-                    <Text style={styles.text}>Expense Claim</Text>
-                </Pressable>
-            </View>
-
-            <View style={styles.view}>
-                <Pressable
-                    onPress={onPressHandlerOPD}
-                    style={({ pressed }) => ({ 
-                        backgroundColor: pressed ? '#ddd' : '#fff' 
-                    })}
-            >
-                    <Text style={styles.text}>OPD Claim</Text>
-                </Pressable>
-            </View>
-
-            <View style={styles.view}>
-                <Pressable
-                    onPress={onPressHandlerRandR}
-                    style={({ pressed }) => ({ 
-                        backgroundColor: pressed ? '#ddd' : '#fff' 
-                    })}
-            >
-                    <Text style={styles.text}>Reward and Recognition</Text>
-                </Pressable>
-            </View>
-        </View>
+            {/* <Stack.Screen 
+              name="Screen-Login" 
+              component={LoginScreen} 
+            /> */}
+  
+        </Stack.Navigator>
+  
+      </NavigationContainer>
     );
-  }
+    
+}
 
 
-const styles = StyleSheet.create({
-    body : {
-      flex: 1, 
-      alignItems: 'center', 
-      //justifyContent: 'center',
-      backgroundColor: '#352D3A',
-    },
-    text: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      margin: 10,
-      color: '#FA6106'
-    },
-    view:{
-        margin:10,
-      },
-      input: {
-        width: 200,
-        borderWidth: 1,
-        borderColor: '#555',
-        borderRadius: 5,
-        textAlign: 'center',
-        fontSize: 20,   
-      },
-      
-  })
+
