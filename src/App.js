@@ -6,7 +6,7 @@ import Expense_Claim from './User/Expense Claim/ExpenseClaim';
 import OPD from './User/OPD/OPD';
 import RAndR from './User/R&R/R&R';
 import AddNewE_Claim from './User/Expense Claim/AddNewEC';
-import ViewP_OPD from './User/OPD/PreviousOPD';
+import Add_OPD2 from './User/OPD/AddNewOPD2';
 import Add_OPD from './User/OPD/AddNewOPD';
 import ViewP_RAndR from './User/R&R/PreviousR&R';
 import Add_RAndR from './User/R&R/NewR&R';
@@ -16,6 +16,7 @@ import {
   Text,
   View,
   Button,
+  TouchableOpacity,
 } from 'react-native';
 
 const Stack = createStackNavigator();
@@ -35,28 +36,42 @@ const onPressHandler3= () =>{
 
   return(
     <View style={styles.body}>
+      <View style={styles.header}>
       <Text style={styles.text}>
-        Persistent Systems
+        Select claim type
       </Text>
-      <View style={styles.button}>
-      <Button
-      onPress={onPressHandler1}
-      color="#e63909"
-      title="Expense Claim"
-      />
-      <Button
-      onPress={onPressHandler2}
-      color="#e63909"
-      title="OPD"
-      />
-
-      <Button 
-      onPress={onPressHandler3}
-      color="#e63909"
-      title="Reward and Recognition"
-      />
       </View>
-    </View>
+      <View style={styles.container}>
+      {/* <View style={styles.button}> */}
+      {/* <Button
+      onPress={onPressHandler1}
+      color="#000000"
+      title="Expense Claim"
+      /> */}
+
+      <TouchableOpacity style={styles.background}
+      onPress={onPressHandler1}>
+        <Text style={styles.textB}>
+          Expense Claim
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.background}
+      onPress={onPressHandler2}>
+        <Text style={styles.textB}>
+          OPD
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.background}
+      onPress={onPressHandler3}>
+        <Text style={styles.textB}>
+          Reward and Recognition
+        </Text>
+      </TouchableOpacity>
+      </View>
+      </View>
+    // </View>
   )
 }
 
@@ -65,10 +80,10 @@ function App(){
     <NavigationContainer>
       <Stack.Navigator screenOptions={{
         headerStyle:{
-          backgroundColor:'#e63909'
+          backgroundColor:'#F89880 '
         },
-        //headerShown: false,
-        headerTintColor:'#ffffff'
+        headerShown: false,
+        headerTintColor:'#000000'
       }}>
         <Stack.Screen
         name="Welcome"
@@ -95,17 +110,17 @@ function App(){
         component={AddNewE_Claim2}
         />
         <Stack.Screen
-        name="View claimed OPDs"
-        component={ViewP_OPD}
-        />
-        <Stack.Screen
         name="Claim a new OPD"
         component={Add_OPD}
         />
         <Stack.Screen
+        name="View the new OPD"
+        component={Add_OPD2}
+        />
+        {/* <Stack.Screen
         name="Claim a new R&R"
         component={Add_RAndR}
-        />
+        /> */}
         <Stack.Screen
         name="View claimed R&Rs"
         component={ViewP_RAndR}
@@ -122,20 +137,48 @@ function App(){
 const styles = StyleSheet.create({
   body:{
     flex:1,
-    justifyContent:'center',
-    alignItems:'center',
-    backgroundColor:'#000000',
+    // justifyContent:'center',
+    // alignItems:'center',
+    backgroundColor:'#ffffff',
+  },
+  header:{
+    flex:1,
+    backgroundColor:'#ffffff',
   },
   text:{
-    fontSize:40,
+    fontSize:35,
     fontWeight:'bold',
-    margin:10,
-    color:'#ffffff',
+    margin:40,
+    color:'#000000',
   },
-  button:{
-    margin:10,
-    marginVertical: 8,
+  background:{
+    backgroundColor: '#ffffff',
+    marginBottom:20,
+    marginTop:40,
+    // margin:0,
+    marginLeft: '15%',
+    width:'70%',
+    height: '15%',
+    justifyContent:'center',
+    alignItems:'center',
+    borderRadius:60,
   },
+  textB:{
+    fontSize:16,
+    marginBottom: 10,
+    marginTop: 1,
+    marginStart:1,
+    // textAlign:'left',
+    marginLeft:10,
+    color:'#000000',
+    fontWeight:'bold',
+  },
+  container:{
+    flex:4,
+    backgroundColor:'#F89880',
+    borderTopLeftRadius: 60,
+    borderTopRightRadius: 60,
+  }
   
 })
 

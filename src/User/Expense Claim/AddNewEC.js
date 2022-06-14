@@ -4,20 +4,14 @@ import {
   Text,
   View,
   Button,
-  Keyboard,
-  TouchableWithoutFeedback
+  Alert,
+  TouchableOpacity,
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import {Picker} from "@react-native-picker/picker";
 import { useNavigation } from '@react-navigation/native'; 
 
 export default function AddNewE_Claim(){
-
-  const DissmissKeyboard = ({children}) =>(
-    <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
-      {children}
-    </TouchableWithoutFeedback>
-  );
 
   const [bu_dept,setBu_Dept] = useState("");
   const [ project,setProject]=useState("");
@@ -31,59 +25,90 @@ export default function AddNewE_Claim(){
 
   const navigation=useNavigation();
 
-  const submit = () => {
-    navigation.navigate("View the new claim",{
-      buDept:bu_dept,
-      project:project,
-      extensionNo:extension_No,
-      customer:customer,
-      location:location,
-      particulars:particulars,
-      amount:amount,
-    })
-  }
+  // const submit = () => {
+  //   navigation.navigate("View the new claim",{
+  //     buDept:bu_dept,
+  //     project:project,
+  //     extensionNo:extension_No,
+  //     customer:customer,
+  //     location:location,
+  //     particulars:particulars,
+  //     amount:amount,
+  //   })
+  // }
+
+  async function claimExpense() {
+    if(isNaN(extension_No)){
+      alert(" Not a number");
+      //this.setState({ email: text })
+      return false;
+      // Its not a number
+    }
+    try {
+      fetch('http://10.0.2.2:8080/api/v1/user/saveUser', {
+  method: 'POST',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    bu_dept,
+    project,
+    extension_No,
+    customer,
+    location,
+    particulars,
+    amount,
+  })
+ 
+})
+
+alert('Expense claimed successfully')
+navigation.navigate('Expense Claim' )
+    } catch (error) {
+      console.error(error);
+    }
+
+	}
 
     return(
-      <DissmissKeyboard>
       <View style={styles.body}>
-        <TextInput style={styles.input}
+        <View style={styles.header}>
+        <Text style={styles.text}>
+        Add a new claim
+        </Text>
+        </View>
+        <View style={styles.container}>
+        <TextInput  onChangeText={newText => setBu_Dept(newText)} style={styles.input}
         placeholder='BU/Dept'
         value={bu_dept}
-        onChangeText={(text)=>setBu_Dept(text)}
         />
-        <TextInput style={styles.input}
+        <TextInput  onChangeText={newText => setProject(newText)} style={styles.input}
         placeholder='Project'
         value={project}
-        onChangeText={(text)=>setProject(text)}
         />
-        <TextInput style={styles.input}
+        <TextInput  onChangeText={newText => setExtension_No(newText)} style={styles.input}
         placeholder='Extension No'
         value={extension_No}
-        onChangeText={(text)=>setExtension_No(text)}
         />
-        <TextInput style={styles.input}
+        <TextInput  onChangeText={newText => setCustomer(newText)} style={styles.input}
         placeholder='Customer'
         value={customer}
-        onChangeText={(text)=>setCustomer(text)}
         />
-        <TextInput style={styles.input}
+        <TextInput  onChangeText={newText => setLocation(newText)} style={styles.input}
         placeholder='Location'
         value={location}
-        onChangeText={(text)=>setLocation(text)}
         />
-        <TextInput style={styles.input}
+        <TextInput  onChangeText={newText => setParticulars(newText)} style={styles.input}
         placeholder='Particulars'
         value={particulars}
-        onChangeText={(text)=>setParticulars(text)}
         />
-        <TextInput style={styles.input}
+        <TextInput  onChangeText={newText => setAmount(newText)} style={styles.input}
         placeholder='Amount'
         value={amount}
-        onChangeText={(text)=>setAmount(text)}
         />
-        <Picker
+        <Picker style={styles.picker}
           selectedValue={Enable}
-          style={{ height: 50, width: 200 }}
           mode={"dialog"}
           onValueChange={(itemValue) => setEnable(itemValue)}
          >
@@ -92,13 +117,19 @@ export default function AddNewE_Claim(){
         <Picker.Item label="Fixed-Price" value="Fixed" />
         </Picker>
       
-        <Button style={styles.button}
-         title='Next'
-         onPress={submit}
-         color="#e63909"
-        />
+        <TouchableOpacity style={styles.background}
+          onPress={claimExpense}>
+        <Text style={styles.textB}>
+          Submit
+        </Text>
+        </TouchableOpacity>
+
+        {/* <Button
+        title='Submit'
+        onPress={claimExpense}
+        /> */}
+        </View>
       </View>
-      </DissmissKeyboard>
     );
   }
 
@@ -106,9 +137,66 @@ export default function AddNewE_Claim(){
   
     input:{
       height: 40,
-      margin: 12,
+      width:200,
+      margin: 5,
       borderWidth: 1,
       padding: 10,
+      // marginHorizontal:150,
+      marginLeft: '25%',
+      marginBottom: 10,
+      backgroundColor:'#ffffff',
     },
+    background:{
+      backgroundColor: '#ffffff',
+      marginBottom:20,
+      marginTop:40,
+      // margin:0,
+      marginLeft: '25%',
+      width:'50%',
+      height: '10%',
+      justifyContent:'center',
+      alignItems:'center',
+      borderRadius:60,
+    },
+    textB:{
+      fontSize:16,
+      marginBottom: 10,
+      marginTop: 1,
+      marginStart:1,
+      // textAlign:'left',
+      marginLeft:10,
+      color:'#000000',
+      fontWeight:'bold',
+    },
+    body:{
+      flex:1,
+      // justifyContent:'center',
+      // alignItems:'center',
+      backgroundColor:'#ffffff',
+    },
+    header:{
+      flex:1,
+      backgroundColor:'#ffffff',
+    },
+    text:{
+      fontSize:30,
+      fontWeight:'bold',
+      margin:30,
+      color:'#000000',
+    },
+    container:{
+      flex:5,
+      backgroundColor:'#F89880',
+      borderTopLeftRadius: 60,
+      borderTopRightRadius: 60,
+    },
+    picker:{
+      height:1,
+      width:200,
+      marginLeft: '25%',
+      marginBottom: 10,
+      backgroundColor:'#ffffff',
+    },
+  
   })
   
