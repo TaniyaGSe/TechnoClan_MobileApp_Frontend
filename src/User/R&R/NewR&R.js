@@ -1,34 +1,37 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import React , {useState} from 'react'; //usestate for hooks
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  Image,
-  Pressable,
-} from 'react-native';
+// import React, { useEffect, useState } from 'react';
+// import { ActivityIndicator, FlatList, Text, View } from 'react-native';
 
-const Stack = createStackNavigator();
+// export default function Add_RAndR(){
+//   const [isLoading, setLoading] = useState(true);
+//   const [data, setData] = useState([]);
 
-export default function Add_RAndR(){
-    return(
-      <View style={styles.body}>
-      </View>
-    )
-  }
+//   const getMovies = async () => {
+//      try {
+//       const response = await fetch('http://10.0.2.2:8080/api/v1/user/getUsers');
+//       const json = await response.json();
+//       setData(json);
+//     } catch (error) {
+//       console.error(error);
+//     } finally {
+//       setLoading(false);
+//     }
+//   }
 
-  const styles = StyleSheet.create({
-    body:{
-      flex:1,
-      justifyContent:'center',
-      alignItems:'center',
-    },
-    text:{
-      fontSize:40,
-      fontWeight:'bold',
-      margin:10,
-    }
-  })
-  
+//   useEffect(() => {
+//     getMovies();
+//   }, []);
+
+//   return (
+//     <View style={{ flex: 1, padding: 24 }}>
+//       {isLoading ? <ActivityIndicator/> : (
+//         <FlatList
+//           data={data}
+//           keyExtractor={({ id }, index) => id}
+//           renderItem={({ item }) => (
+//             <Text>{item.firstName}, {item.secondName}</Text>
+//           )}
+//         />
+//       )}
+//     </View>
+//   );
+// };
