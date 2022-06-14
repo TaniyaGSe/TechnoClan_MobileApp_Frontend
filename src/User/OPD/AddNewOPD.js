@@ -23,13 +23,6 @@ export default function AddNewE_Claim(){
 
   const navigation=useNavigation();
 
-  // const next = () => {
-  //   navigation.navigate("View the new OPD",{
-  //     description:description,
-  //     receiptNo:receiptNo,
-  //     amount:amount,
-  //   })
-  // }
   async function claimOPD() {
     if(isNaN(receipt_no),(opd_amount)){
       alert(" Not a number");
@@ -73,11 +66,7 @@ export default function AddNewE_Claim(){
         <TextInput  onChangeText={newText => setDescriptiont(newText)} style={styles.input}
         placeholder='Description'
         value={description}
-        />
-        {/* {!!this.state.nameError && (
-        <Text style={{ color: "red" }}>{this.state.nameError}</Text>
-        )} */}
-        
+        />  
         <TextInput  onChangeText={newText => setReceiptNo(newText)} style={styles.input}
         placeholder='Receipt No'
         keyboardType='numeric'
@@ -90,13 +79,6 @@ export default function AddNewE_Claim(){
         />
         <TouchableOpacity style={styles.background}
           onPress={claimOPD} >
-          {/* // onPress={() => {
-          //   if (this.state.text.trim() === "") {
-          //     this.setState(() => ({ nameError: "First name required."}));
-          //   } else {
-          //     this.setState(() => ({ nameError: null}));
-          //   }
-          // }}> */}
         <Text style={styles.textB}>
           Submit
         </Text>
@@ -116,10 +98,10 @@ export default function AddNewE_Claim(){
       borderRadius:10,
       marginLeft: '25%',
       marginBottom: 10,
-      backgroundColor:'#ffffff',
+      backgroundColor:'#F89880',
     },
     background:{
-      backgroundColor: '#ffffff',
+      backgroundColor: '#F89880',
       marginBottom:20,
       marginTop:40,
       // margin:0,
@@ -144,11 +126,11 @@ export default function AddNewE_Claim(){
       flex:1,
       // justifyContent:'center',
       // alignItems:'center',
-      backgroundColor:'#ffffff',
+      backgroundColor:'#F89880',
     },
     header:{
       flex:1,
-      backgroundColor:'#ffffff',
+      backgroundColor:'#F89880',
     },
     text:{
       fontSize:30,
@@ -157,10 +139,10 @@ export default function AddNewE_Claim(){
       color:'#000000',
     },
     container:{
-      flex:5,
-      backgroundColor:'#F89880',
-      borderTopLeftRadius: 60,
-      borderTopRightRadius: 60,
+      flex:3,
+      backgroundColor:'#000000',
+      // borderTopLeftRadius: 60,
+      // borderTopRightRadius: 60,
     },
   })
   

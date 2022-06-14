@@ -92,7 +92,7 @@ export default function Expense_Claim({navigation}){
       width:60,
       height:60,
       borderRadius:30,
-      backgroundColor:'#ffffff',
+      backgroundColor:'#000000',
       justifyContent:'center',
       position:'absolute',
       bottom:25,
@@ -109,11 +109,12 @@ export default function Expense_Claim({navigation}){
       flex:1,
       // justifyContent:'center',
       // alignItems:'center',
-      backgroundColor:'#ffffff',
+      backgroundColor:'#F89880',
     },
     header:{
       flex:1,
-      backgroundColor:'#ffffff',
+      backgroundColor:'#F89880',
+
     },
     text:{
       fontSize:30,
@@ -131,13 +132,13 @@ export default function Expense_Claim({navigation}){
       marginHorizontal:20,
       marginVertical:10,
       paddingHorizontal:10,
-      backgroundColor:'#ffffff',
+      backgroundColor:'#000000',
       justifyContent:'center',
       borderRadius:10,
       elevation:8,
     },
     rowText:{
-      color:'#000000',
+      color:'#ffffff',
       fontSize:14,
       margin:1,
     }

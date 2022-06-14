@@ -69,7 +69,7 @@ export default function OPD({navigation}){
           <FontAwesome5 style={styles.plus}
           name={'plus'}
           size={30}
-          color={'#ffffff'}
+          color={'#F89880'}
           />
         </TouchableOpacity>
       </View>
@@ -83,7 +83,7 @@ export default function OPD({navigation}){
       width:60,
       height:60,
       borderRadius:30,
-      backgroundColor:'#e63909',
+      backgroundColor:'#000000',
       justifyContent:'center',
       position:'absolute',
       bottom:25,
@@ -97,11 +97,11 @@ export default function OPD({navigation}){
       flex:1,
       // justifyContent:'center',
       // alignItems:'center',
-      backgroundColor:'#ffffff',
+      backgroundColor:'#F89880',
     },
     header:{
       flex:1,
-      backgroundColor:'#ffffff',
+      backgroundColor:'#F89880',
     },
     text:{
       fontSize:30,
@@ -119,13 +119,13 @@ export default function OPD({navigation}){
       marginHorizontal:20,
       marginVertical:10,
       paddingHorizontal:10,
-      backgroundColor:'#ffffff',
+      backgroundColor:'#000000',
       justifyContent:'center',
       borderRadius:10,
       elevation:8,
     },
     rowText:{
-      color:'#000000',
+      color:'#ffffff',
       fontSize:14,
       margin:1,
     }
