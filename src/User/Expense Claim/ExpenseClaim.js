@@ -14,7 +14,7 @@ export default function Expense_Claim({navigation}){
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  const getMovies = async () => {
+  const getExpenseClaims = async () => {
      try {
       const response = await fetch('http://10.0.2.2:8080/api/v1/user/getUsers');
       const json = await response.json();
@@ -27,10 +27,11 @@ export default function Expense_Claim({navigation}){
   }
 
   useEffect(() => {
-    getMovies();
+    getExpenseClaims();
   }, []);
 
     return(
+      
       <View style={styles.body}>
       <View style={styles.header}>
       <Text style={styles.text}>
@@ -43,21 +44,35 @@ export default function Expense_Claim({navigation}){
           data={data}
           keyExtractor={({ id }, index) => id}
           renderItem={({ item }) => (
-            <Text>
-            BU/Dept:{item.bu_dept}, 
-            Project:{item.project},
-            Extension No:{item.extension_No},
-            Customer:{item.customer},
-            Location:{item.Location},
-            Particulars:{item.particulars},
-            Amount:{item.amount},
+            <TouchableOpacity style={styles.row}>
+            <Text style={styles.rowText}>
+            BU/Dept:{item.bu_dept}
             </Text>
+            <Text style={styles.rowText}>
+            Project:{item.project}
+            </Text>
+            <Text style={styles.rowText}>
+            Extension No:{item.extension_No},
+            </Text>
+            <Text style={styles.rowText}>
+            Customer:{item.customer}
+            </Text>
+            <Text style={styles.rowText}>
+            Location:{item.Location}
+            </Text>
+            <Text style={styles.rowText}>
+            Particulars:{item.particulars}
+            </Text>
+            <Text style={styles.rowText}>
+            Amount:{item.amount}
+            </Text>
+            </TouchableOpacity>
           )}
         />
       )}
 
          <TouchableOpacity style={styles.button} 
-        onPress={()=>{
+          onPress={()=>{
           navigation.navigate('Add a new claim');
         }}
         >
@@ -109,8 +124,22 @@ export default function Expense_Claim({navigation}){
     container:{
       flex:5,
       backgroundColor:'#F89880',
-      borderTopLeftRadius: 60,
-      borderTopRightRadius: 60,
+      borderTopLeftRadius: 40,
+      borderTopRightRadius: 40,
+    },
+    row:{
+      marginHorizontal:20,
+      marginVertical:10,
+      paddingHorizontal:10,
+      backgroundColor:'#ffffff',
+      justifyContent:'center',
+      borderRadius:10,
+      elevation:8,
+    },
+    rowText:{
+      color:'#000000',
+      fontSize:14,
+      margin:1,
     }
   })
 

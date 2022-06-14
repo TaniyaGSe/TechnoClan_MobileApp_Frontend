@@ -1,17 +1,66 @@
-import React , {useState} from 'react'; //usestate for hooks
+import React , { useEffect, useState } from 'react'; //usestate for hooks
 import {
   StyleSheet,
   View,
-  Button,
   TouchableOpacity,
 } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+
+import { ActivityIndicator, FlatList, Text,} from 'react-native';
 
 
 export default function OPD({navigation}){
 
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+
+  const getOPDs = async () => {
+     try {
+      const response = await fetch('http://10.0.2.2:8080/api/v2/opd/getOPDs');
+      const json = await response.json();
+      setData(json);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getOPDs();
+  }, []);
+
     return(
       <View style={styles.body}>
+      <View style={styles.header}>
+      <Text style={styles.text}>
+        Claimed OPDs
+      </Text>
+      </View>
+      <View style={styles.container}>
+      {isLoading ? <ActivityIndicator/> : (
+        <FlatList
+          data={data}
+          keyExtractor={({ id }, index) => id}
+          renderItem={({ item }) => (
+            <TouchableOpacity style={styles.row}>
+            {/* // onPress={()=>{
+            //   navigation.navigate('Edit OPD');
+            // }} */}
+            <Text style={styles.rowText}>
+            Description:{item.description}
+            </Text>
+            <Text style={styles.rowText}>
+            Receipt No:{item.receipt_no}
+            </Text>
+            <Text style={styles.rowText}>
+            amount:{item.opd_amount}
+            </Text>
+            </TouchableOpacity>
+          )}
+        />
+      )}
          <TouchableOpacity style={styles.button} 
         onPress={()=>{
           navigation.navigate('Claim a new OPD');
@@ -24,21 +73,12 @@ export default function OPD({navigation}){
           />
         </TouchableOpacity>
       </View>
+      </View>
     )
   }
 
   const styles = StyleSheet.create({
-    body:{
-      flex:1,
-      justifyContent:'center',
-      alignItems:'center',
-    },
-    text:{
-      fontSize:40,
-      fontWeight:'bold',
-      margin:10,
-      color:'#000000',
-    },
+   
     button:{
       width:60,
       height:60,
@@ -52,6 +92,42 @@ export default function OPD({navigation}){
     },
     plus:{
       left:15,
+    },
+    body:{
+      flex:1,
+      // justifyContent:'center',
+      // alignItems:'center',
+      backgroundColor:'#ffffff',
+    },
+    header:{
+      flex:1,
+      backgroundColor:'#ffffff',
+    },
+    text:{
+      fontSize:30,
+      fontWeight:'bold',
+      margin:35,
+      color:'#000000',
+    },
+    container:{
+      flex:5,
+      backgroundColor:'#F89880',
+      borderTopLeftRadius: 40,
+      borderTopRightRadius: 40,
+    },
+    row:{
+      marginHorizontal:20,
+      marginVertical:10,
+      paddingHorizontal:10,
+      backgroundColor:'#ffffff',
+      justifyContent:'center',
+      borderRadius:10,
+      elevation:8,
+    },
+    rowText:{
+      color:'#000000',
+      fontSize:14,
+      margin:1,
     }
   })
 

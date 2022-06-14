@@ -3,8 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
-  Alert,
   TouchableOpacity,
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
@@ -124,10 +122,6 @@ navigation.navigate('Expense Claim' )
         </Text>
         </TouchableOpacity>
 
-        {/* <Button
-        title='Submit'
-        onPress={claimExpense}
-        /> */}
         </View>
       </View>
     );
@@ -139,7 +133,7 @@ navigation.navigate('Expense Claim' )
       height: 40,
       width:200,
       margin: 5,
-      borderWidth: 1,
+      borderRadius:10,
       padding: 10,
       // marginHorizontal:150,
       marginLeft: '25%',

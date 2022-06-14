@@ -1,6 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React , {useState} from 'react'; //usestate for hooks
 import Expense_Claim from './User/Expense Claim/ExpenseClaim';
 import OPD from './User/OPD/OPD';
@@ -20,7 +19,6 @@ import {
 } from 'react-native';
 
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
 
 function SelectingPage({navigation}){
 
@@ -80,7 +78,7 @@ function App(){
     <NavigationContainer>
       <Stack.Navigator screenOptions={{
         headerStyle:{
-          backgroundColor:'#F89880 '
+          backgroundColor:'#000000 '
         },
         headerShown: false,
         headerTintColor:'#000000'
@@ -114,7 +112,7 @@ function App(){
         component={Add_OPD}
         />
         <Stack.Screen
-        name="View the new OPD"
+        name="Edit OPD"
         component={Add_OPD2}
         />
         {/* <Stack.Screen
@@ -141,10 +139,10 @@ const styles = StyleSheet.create({
     // alignItems:'center',
     backgroundColor:'#ffffff',
   },
-  header:{
-    flex:1,
-    backgroundColor:'#ffffff',
-  },
+  // header:{
+  //   flex:1,
+  //   backgroundColor:'#F89880 ',
+  // },
   text:{
     fontSize:35,
     fontWeight:'bold',
@@ -153,15 +151,20 @@ const styles = StyleSheet.create({
   },
   background:{
     backgroundColor: '#ffffff',
-    marginBottom:20,
-    marginTop:40,
-    // margin:0,
-    marginLeft: '15%',
+    // marginBottom:20,
+    // marginTop:40,
+    // // margin:0,
+    // marginLeft: '15%',
     width:'70%',
     height: '15%',
     justifyContent:'center',
     alignItems:'center',
     borderRadius:60,
+    elevation:8,
+    marginTop:30,
+    marginHorizontal:60,
+    marginVertical:15,
+    paddingHorizontal:10,
   },
   textB:{
     fontSize:16,
@@ -174,7 +177,7 @@ const styles = StyleSheet.create({
     fontWeight:'bold',
   },
   container:{
-    flex:4,
+    flex:2,
     backgroundColor:'#F89880',
     borderTopLeftRadius: 60,
     borderTopRightRadius: 60,
