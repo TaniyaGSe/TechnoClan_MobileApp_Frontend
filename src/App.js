@@ -7,9 +7,9 @@ import RAndR from './User/R&R/R&R';
 import AddNewE_Claim from './User/Expense Claim/AddNewEC';
 import Add_OPD2 from './User/OPD/AddNewOPD2';
 import Add_OPD from './User/OPD/AddNewOPD';
-import ViewP_RAndR from './User/R&R/PreviousR&R';
-import Add_RAndR from './User/R&R/NewR&R';
+import AddNew_RAndR from './User/R&R/AddNewR&R';
 import AddNewE_Claim2 from './User/Expense Claim/AddNewEC2';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import {
   StyleSheet,
   Text,
@@ -35,9 +35,11 @@ const onPressHandler3= () =>{
   return(
     <View style={styles.body}>
       <View style={styles.header}>
-      <Text style={styles.text}>
+      {/* <View style={styles.headerSub}>  */}
+      {/* <Text style={styles.text}>
         Select claim type
-      </Text>
+      </Text> */}
+      {/* </View> */}
       </View>
       <View style={styles.container}>
       {/* <View style={styles.button}> */}
@@ -52,6 +54,11 @@ const onPressHandler3= () =>{
         <Text style={styles.textB}>
           Expense Claim
         </Text>
+        <FontAwesome5
+          name={'money-check'}
+          size={30}
+          color={'#ffffff'}
+          />
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.background}
@@ -59,6 +66,11 @@ const onPressHandler3= () =>{
         <Text style={styles.textB}>
           OPD
         </Text>
+        <FontAwesome5 style={styles.plus}
+          name={'hospital-user'}
+          size={30}
+          color={'#ffffff'}
+          />
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.background}
@@ -66,6 +78,11 @@ const onPressHandler3= () =>{
         <Text style={styles.textB}>
           Reward and Recognition
         </Text>
+        <FontAwesome5 style={styles.plus}
+          name={'grin-stars'}
+          size={30}
+          color={'#ffffff'}
+          />
       </TouchableOpacity>
       </View>
       </View>
@@ -111,20 +128,20 @@ function App(){
         name="Claim a new OPD"
         component={Add_OPD}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
         name="Edit OPD"
         component={Add_OPD2}
-        />
+        /> */}
         {/* <Stack.Screen
         name="Claim a new R&R"
         component={Add_RAndR}
         /> */}
         <Stack.Screen
-        name="View claimed R&Rs"
-        component={ViewP_RAndR}
+        name="Add new R And R"
+        component={AddNew_RAndR}
         />
          <Stack.Screen
-        name="Next"
+        name="Edit"
         component={AddNewE_Claim2}
         />
       </Stack.Navigator>
@@ -137,20 +154,33 @@ const styles = StyleSheet.create({
     flex:1,
     // justifyContent:'center',
     // alignItems:'center',
-    backgroundColor:'#ffffff',
+    backgroundColor:'#F89880',
   },
-  // header:{
-  //   flex:1,
-  //   backgroundColor:'#F89880 ',
+  header:{
+    flex:2,
+    backgroundColor:'#F89880',
+    // borderRadius:50,
+    // marginLeft:10,
+    // marginRight:10,
+    // marginBottom:10,
+    // marginTop:20,
+  },
+  // headerSub:{
+  //   backgroundColor:'eaa9ac',
+  //   borderRadius:40,
+  //   marginLeft:20,
+  //   marginRight:20,
+  //   marginBottom:20,
+  //   marginTop:30,
   // },
   text:{
-    fontSize:35,
+    fontSize:50,
     fontWeight:'bold',
     margin:40,
-    color:'#000000',
+    color:'#ffffff',
   },
   background:{
-    backgroundColor: '#ffffff',
+    backgroundColor: '#000000',
     // marginBottom:20,
     // marginTop:40,
     // // margin:0,
@@ -160,11 +190,11 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     alignItems:'center',
     borderRadius:60,
-    elevation:8,
+    elevation:30,
     marginTop:30,
     marginHorizontal:60,
-    marginVertical:15,
-    paddingHorizontal:10,
+    marginVertical:10,
+    paddingHorizontal:20,
   },
   textB:{
     fontSize:16,
@@ -173,14 +203,19 @@ const styles = StyleSheet.create({
     marginStart:1,
     // textAlign:'left',
     marginLeft:10,
-    color:'#000000',
+    color:'#ffffff',
     fontWeight:'bold',
   },
   container:{
-    flex:2,
+    flex:6,
     backgroundColor:'#F89880',
-    borderTopLeftRadius: 60,
-    borderTopRightRadius: 60,
+    // borderRadius:50,
+    // marginLeft:20,
+    // marginRight:20,
+    // marginBottom:30,
+    borderTopRightRadius:30,
+    borderTopLeftRadius:30,
+    marginTop:10,
   }
   
 })
