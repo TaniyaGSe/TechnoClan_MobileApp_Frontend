@@ -23,27 +23,51 @@ export default function AddNewE_Claim(){
 
   const navigation=useNavigation();
 
-  // const submit = () => {
-  //   navigation.navigate("View the new claim",{
-  //     buDept:bu_dept,
-  //     project:project,
-  //     extensionNo:extension_No,
-  //     customer:customer,
-  //     location:location,
-  //     particulars:particulars,
-  //     amount:amount,
-  //   })
-  // }
-
   async function claimExpense() {
-    if(isNaN(extension_No)){
-      alert(" Not a number");
-      //this.setState({ email: text })
-      return false;
-      // Its not a number
+    if (!bu_dept.trim()) {
+      alert('Please Enter Bu/Dep');
+      return;
     }
+    if (!project.trim()) {
+      alert('Please Enter project');
+      return;
+    }
+    if (!extension_No.trim()) {
+      alert('Please Enter extension number');
+      return;
+    }
+    if (!customer.trim()) {
+      alert('Please Enter customer name');
+      return;
+    }
+    if (!location.trim()) {
+      alert('Please Enter location');
+      return;
+    }
+    if (!particulars.trim()) {
+      alert('Please Enter particulars');
+      return;
+    }
+    if (!amount.trim()) {
+      alert('Please Enter amount');
+      return;
+    }
+    //not a number
+    // if(isNaN(extension_No)){
+    //   alert(" Not a number");
+    //   //this.setState({ email: text })
+    //   return false;
+    //   // Its not a number
+    // }
+    // if(isNaN(amount)){
+    //   alert(" Not a number");
+    //   //this.setState({ email: text })
+    //   return false;
+    //   // Its not a number
+    // }
+
     try {
-      fetch('http://10.0.2.2:8080/api/v1/user/saveUser', {
+      fetch('http://10.0.2.2:8080/api/v1/expenseclaim/saveExpenseClaim', {
   method: 'POST',
   headers: {
     Accept: 'application/json',

@@ -3,20 +3,34 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
+  RefreshControl,
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-
 import { ActivityIndicator, FlatList, Text,} from 'react-native';
+import axios from "axios";
+
+//refresh
+// const wait = (timeout) => {
+//   return new Promise(resolve => setTimeout(resolve, timeout));
+// }
 
 export default function Expense_Claim({navigation}){
+  //refresh
+  // const [refreshing, setRefreshing] = React.useState(false);
 
+  // const onRefresh = React.useCallback(() => {
+  //   setRefreshing(true);
+  //   wait(2000).then(() => setRefreshing(false));
+  // }, []);
+
+  // backend
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  const getExpenseClaims = async () => {
+  const getExpenseClaims = async  () => {
      try {
-      const response = await fetch('http://10.0.2.2:8080/api/v1/user/getUsers');
+      const response = await fetch('http://10.0.2.2:8080/api/v1/expenseclaim/getExpenseClaims');
       const json = await response.json();
       setData(json);
     } catch (error) {
@@ -24,11 +38,29 @@ export default function Expense_Claim({navigation}){
     } finally {
       setLoading(false);
     }
-  }
-
+    }
   useEffect(() => {
     getExpenseClaims();
   }, []);
+
+//     var axios = require('axios');
+
+//     var config = {
+//     method: 'get',
+//     url: 'http://10.0.2.2:8080/api/v1/expenseclaim/getExpenseClaims',
+//     headers: { 
+//     'Content-Type': 'application/json'
+//    },
+//    data : data
+//   };
+
+//     axios(config)
+//   .then(function (response) {
+//    console.log(JSON.stringify(response.data));
+//   })
+//   .catch(function (error) {
+//   console.log(error);
+// });
 
     return(
       
@@ -40,11 +72,28 @@ export default function Expense_Claim({navigation}){
       </View>
       <View style={styles.container}>
       {isLoading ? <ActivityIndicator/> : (
-        <FlatList
+        <FlatList 
+        // refreshControl={
+        //   <RefreshControl
+        //     refreshing={refreshing}
+        //     onRefresh={onRefresh}
+        //   />
+        // }
           data={data}
-          keyExtractor={({ id }, index) => id}
+          keyExtractor={({ id }) => id}
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.row}>
+            <TouchableOpacity style={styles.row}
+            onPress={()=>{
+              navigation.navigate('Edit');
+            }}>
+              <FontAwesome5
+              name={'money-check-alt'}
+              size={30}
+              color={'#ffffff'}
+            />
+            {/* <Text style={styles.rowText}>
+            Claim ID:{item.EmpId}
+            </Text> */}
             <Text style={styles.rowText}>
             BU/Dept:{item.bu_dept}
             </Text>
@@ -58,7 +107,7 @@ export default function Expense_Claim({navigation}){
             Customer:{item.customer}
             </Text>
             <Text style={styles.rowText}>
-            Location:{item.Location}
+            Location:{item.location}
             </Text>
             <Text style={styles.rowText}>
             Particulars:{item.particulars}
@@ -79,7 +128,7 @@ export default function Expense_Claim({navigation}){
           <FontAwesome5 style={styles.plus}
           name={'plus'}
           size={30}
-          color={'#F89880'}
+          color={'#000000'}
           />
         </TouchableOpacity>
         </View>
@@ -92,7 +141,7 @@ export default function Expense_Claim({navigation}){
       width:60,
       height:60,
       borderRadius:30,
-      backgroundColor:'#000000',
+      backgroundColor:'#F89880',
       justifyContent:'center',
       position:'absolute',
       bottom:25,

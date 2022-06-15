@@ -3,13 +3,12 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   TouchableOpacity,
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native'; 
 
-export default function AddNewE_Claim(){
+export default function Add_OPD(){
 
   // const DissmissKeyboard = ({children}) =>(
   //   <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
@@ -17,19 +16,31 @@ export default function AddNewE_Claim(){
   //   </TouchableWithoutFeedback>
   // );
 
-  const [description,setDescriptiont] = useState("");
-  const [ receipt_no,setReceiptNo]=useState("");
-  const [ opd_amount,setAmount]=useState("");
+  const [description,setDescription] = useState("");
+  const [receiptno,setReceiptno]=useState("");
+  const [opdamount,setOpdamount]=useState("");
 
   const navigation=useNavigation();
 
   async function claimOPD() {
-    if(isNaN(receipt_no),(opd_amount)){
-      alert(" Not a number");
-      //this.setState({ email: text })
-      return false;
-      // Its not a number
+    if (!description.trim()) {
+      alert('Please Enter Extension no');
+      return;
     }
+    if (!receiptno.trim()) {
+      alert('Please Enter customer name');
+      return;
+    }
+    if (!opdamount.trim()) {
+      alert('Please Enter location');
+      return;
+    }
+    // if(isNaN(opd_amount)){
+    //   alert(" Not a number");
+    //   //this.setState({ email: text })
+    //   return false;
+    //   // Its not a number
+    // }
 
   try {
     fetch('http://10.0.2.2:8080/api/v2/opd/saveOPD', {
@@ -40,8 +51,8 @@ export default function AddNewE_Claim(){
             },
    body: JSON.stringify({
       description,
-      receipt_no,
-      opd_amount,
+      receiptno,
+      opdamount,
   })
 
 })
@@ -63,19 +74,19 @@ export default function AddNewE_Claim(){
         </View>
         <View style={styles.container}>
 
-        <TextInput  onChangeText={newText => setDescriptiont(newText)} style={styles.input}
+        <TextInput  onChangeText={newText => setDescription(newText)} style={styles.input}
         placeholder='Description'
         value={description}
         />  
-        <TextInput  onChangeText={newText => setReceiptNo(newText)} style={styles.input}
+        <TextInput  onChangeText={newText => setReceiptno(newText)} style={styles.input}
         placeholder='Receipt No'
-        keyboardType='numeric'
-        value={receipt_no}
+        // keyboardType='numeric'
+        value={receiptno}
         />
-        <TextInput  onChangeText={newText => setAmount(newText)} style={styles.input}
+        <TextInput  onChangeText={newText => setOpdamount(newText)} style={styles.input}
         placeholder='Amount'
-        value={opd_amount}
-        keyboardType='numeric'
+        value={opdamount}
+        // keyboardType='numeric'
         />
         <TouchableOpacity style={styles.background}
           onPress={claimOPD} >

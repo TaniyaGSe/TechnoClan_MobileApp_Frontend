@@ -48,6 +48,11 @@ export default function RAndR({navigation}){
             {/* // onPress={()=>{
             //   navigation.navigate('Edit OPD');
             // }} */}
+            <FontAwesome5 
+             name={'star'}
+             size={30}
+             color={'#F89880'}
+            />
             <Text style={styles.rowText}>
             Extension No:{item.extension_no}
             </Text>
@@ -68,7 +73,7 @@ export default function RAndR({navigation}){
         />
       )}
          <TouchableOpacity style={styles.button} 
-        onPress={()=>{
+          onPress={()=>{
           navigation.navigate('Add new R And R');
         }}
         >

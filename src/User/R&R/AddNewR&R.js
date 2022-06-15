@@ -9,7 +9,6 @@ import {
 import { TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
-
 export default function AddNew_RAndR(){
 
   const [extension_no,setExtension_not] = useState("");
@@ -22,13 +21,41 @@ export default function AddNew_RAndR(){
   const navigation=useNavigation();
 
   async function claimRAndR() {
-    if(isNaN(extension_no),(amount)){
-      alert(" Not a number");
-      //this.setState({ email: text })
-      return false;
-      // Its not a number
+    
+    if (!extension_no.trim()) {
+      alert('Please Enter Extension no');
+      return;
     }
-
+    if (!customer.trim()) {
+      alert('Please Enter customer name');
+      return;
+    }
+    if (!location.trim()) {
+      alert('Please Enter location');
+      return;
+    }
+    if (!particulars.trim()) {
+      alert('Please Enter particulars');
+      return;
+    }
+    if (!amount.trim()) {
+      alert('Please Enter amount');
+      return;
+    }
+  
+    //not a number
+    // if(isNaN(extension_no)){
+    //   alert(" Not a number");
+    //   //this.setState({ email: text })
+    //   return false;
+    //   // Its not a number
+    // }
+    // if(isNaN(amount)){
+    //   alert(" Not a number");
+    //   //this.setState({ email: text })
+    //   return false;
+    //   // Its not a number
+    // }
   try {
     fetch('http://10.0.2.2:8080/api/v3/randr/saveRAndR', {
    method: 'POST',
@@ -71,7 +98,7 @@ export default function AddNew_RAndR(){
         value={customer}
         />
         <TextInput  onChangeText={newText => setLocation(newText)} style={styles.input}
-        placeholder='LocationAmount'
+        placeholder='Location'
         value={location}
         />
         <TextInput  onChangeText={newText => setParticulars(newText)} style={styles.input}

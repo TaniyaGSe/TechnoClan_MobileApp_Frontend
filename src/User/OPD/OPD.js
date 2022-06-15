@@ -48,14 +48,19 @@ export default function OPD({navigation}){
             {/* // onPress={()=>{
             //   navigation.navigate('Edit OPD');
             // }} */}
+          <FontAwesome5 
+            name={'hospital-alt'}
+            size={30}
+            color={'#ffffff'}
+          />
             <Text style={styles.rowText}>
             Description:{item.description}
             </Text>
             <Text style={styles.rowText}>
-            Receipt No:{item.receipt_no}
+            Receipt No:{item.receiptno}
             </Text>
             <Text style={styles.rowText}>
-            amount:{item.opd_amount}
+            amount:{item.opdamount}
             </Text>
             </TouchableOpacity>
           )}
@@ -69,7 +74,7 @@ export default function OPD({navigation}){
           <FontAwesome5 style={styles.plus}
           name={'plus'}
           size={30}
-          color={'#F89880'}
+          color={'#000000'}
           />
         </TouchableOpacity>
       </View>
@@ -83,7 +88,7 @@ export default function OPD({navigation}){
       width:60,
       height:60,
       borderRadius:30,
-      backgroundColor:'#000000',
+      backgroundColor:'#F89880',
       justifyContent:'center',
       position:'absolute',
       bottom:25,

@@ -9,6 +9,7 @@ import Add_OPD2 from './User/OPD/AddNewOPD2';
 import Add_OPD from './User/OPD/AddNewOPD';
 import AddNew_RAndR from './User/R&R/AddNewR&R';
 import AddNewE_Claim2 from './User/Expense Claim/AddNewEC2';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import {
   StyleSheet,
   Text,
@@ -53,6 +54,11 @@ const onPressHandler3= () =>{
         <Text style={styles.textB}>
           Expense Claim
         </Text>
+        <FontAwesome5
+          name={'money-check'}
+          size={30}
+          color={'#ffffff'}
+          />
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.background}
@@ -60,6 +66,11 @@ const onPressHandler3= () =>{
         <Text style={styles.textB}>
           OPD
         </Text>
+        <FontAwesome5 style={styles.plus}
+          name={'hospital-user'}
+          size={30}
+          color={'#ffffff'}
+          />
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.background}
@@ -67,6 +78,11 @@ const onPressHandler3= () =>{
         <Text style={styles.textB}>
           Reward and Recognition
         </Text>
+        <FontAwesome5 style={styles.plus}
+          name={'grin-stars'}
+          size={30}
+          color={'#ffffff'}
+          />
       </TouchableOpacity>
       </View>
       </View>
@@ -112,10 +128,10 @@ function App(){
         name="Claim a new OPD"
         component={Add_OPD}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
         name="Edit OPD"
         component={Add_OPD2}
-        />
+        /> */}
         {/* <Stack.Screen
         name="Claim a new R&R"
         component={Add_RAndR}
@@ -125,7 +141,7 @@ function App(){
         component={AddNew_RAndR}
         />
          <Stack.Screen
-        name="Next"
+        name="Edit"
         component={AddNewE_Claim2}
         />
       </Stack.Navigator>
@@ -161,7 +177,7 @@ const styles = StyleSheet.create({
     fontSize:50,
     fontWeight:'bold',
     margin:40,
-    color:'#000000',
+    color:'#ffffff',
   },
   background:{
     backgroundColor: '#000000',
@@ -193,10 +209,12 @@ const styles = StyleSheet.create({
   container:{
     flex:6,
     backgroundColor:'#F89880',
-    borderRadius:50,
-    marginLeft:20,
-    marginRight:20,
-    marginBottom:30,
+    // borderRadius:50,
+    // marginLeft:20,
+    // marginRight:20,
+    // marginBottom:30,
+    borderTopRightRadius:30,
+    borderTopLeftRadius:30,
     marginTop:10,
   }
   
