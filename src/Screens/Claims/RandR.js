@@ -25,18 +25,18 @@ export default function RandRClaim({navigation}) {
 }
 
 const styles = StyleSheet.create({
-    body : {
-      flex: 1, 
-      alignItems: 'center', 
-      //justifyContent: 'center',
-      backgroundColor: '#352D3A',
-    },
-    text: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      margin: 10,
-      color: '#FA6106'
-    },
+  body : {
+    flex: 1, 
+    alignItems: 'center', 
+    //justifyContent: 'center',
+    backgroundColor: '#fff',
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    margin: 10,
+    color: '#000'
+  },
     view:{
         margin:10,
       },

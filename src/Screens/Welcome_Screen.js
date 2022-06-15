@@ -17,9 +17,9 @@ export default function WelcomeScreen({navigation}) {
         <NavigationContainer independent={true}>
   
         <Stack.Navigator
-        screenOptions = {{
-          header: () => null
-        }}
+            screenOptions = {{
+            header: () => null
+            }}
         >
             <Stack.Screen 
                 name="Home" 

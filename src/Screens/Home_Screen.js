@@ -2,6 +2,7 @@ import * as React from 'react';
 import { View, Text, StyleSheet,Pressable,TextInput,Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import CustomButton from '../Components/Button';
 
 export default function HomeScreen({navigation}) {
     const onPressHandlerExpense = () => {
@@ -17,7 +18,7 @@ export default function HomeScreen({navigation}) {
       }
 
     const onPressHandlerLogOut = () => {
-        navigation.navigate('Screen-Login');
+
     }
 
     
@@ -35,37 +36,16 @@ export default function HomeScreen({navigation}) {
             </View>    
 
 
-            <View style={styles.view}>
-                <Pressable
-                    onPress={onPressHandlerExpense}
-                    style={({ pressed }) => ({ 
-                        backgroundColor: pressed ? '#ddd' : '#fff' 
-                    })}
-            >
-                    <Text style={styles.text}>Expense Claim</Text>
-                </Pressable>
+            <View style={styles.action2}>
+                <CustomButton onPressFunction={onPressHandlerExpense} title="Expense Claim" style={{margin:20,width:200}}/>
             </View>
 
-            <View style={styles.view}>
-                <Pressable
-                    onPress={onPressHandlerOPD}
-                    style={({ pressed }) => ({ 
-                        backgroundColor: pressed ? '#ddd' : '#fff' 
-                    })}
-            >
-                    <Text style={styles.text}>OPD Claim</Text>
-                </Pressable>
+            <View style={styles.action2}>
+                <CustomButton onPressFunction={onPressHandlerOPD} title="OPD Claim" style={{margin:20,width:200}}/>
             </View>
 
-            <View style={styles.view}>
-                <Pressable
-                    onPress={onPressHandlerRandR}
-                    style={({ pressed }) => ({ 
-                        backgroundColor: pressed ? '#ddd' : '#fff' 
-                    })}
-            >
-                    <Text style={styles.text}>Reward and Recognition</Text>
-                </Pressable>
+            <View style={styles.action2}>
+                <CustomButton onPressFunction={onPressHandlerRandR} title="RandR Claim" style={{margin:20,width:200}}/>
             </View>
 
             <View style={styles.view}>
@@ -89,13 +69,13 @@ const styles = StyleSheet.create({
       flex: 1, 
       alignItems: 'center', 
       //justifyContent: 'center',
-      backgroundColor: '#352D3A',
+      backgroundColor: '#fff',
     },
     text: {
       fontSize: 20,
       fontWeight: 'bold',
       margin: 10,
-      color: '#FA6106'
+      color: '#000'
     },
     view:{
         margin:10,
