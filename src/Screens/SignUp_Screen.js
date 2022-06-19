@@ -21,8 +21,11 @@ export default function LoginScreen({navigation}) {
     const [data,setData] = useState("");
 
     const [name,setName] = useState("")
-    const [Id,setId] = useState("")
-    const [address,setAddress] = useState("")
+    //const [lastName,setLastName] = useState("")
+    const [id,setId] = useState("")
+    const [email,setEmail] = useState("")  
+    const [phoneN,setPhoneN] = useState("")
+    const [password,setPassword] = useState("")
 
     const onPressHandler = () => {
              
@@ -48,72 +51,72 @@ export default function LoginScreen({navigation}) {
     }
 
     const onPressHandler2 = () => {
-        if(isNaN(Id)){
+        
+      if(isNaN(id)){
             alert(" Id should be a number");
             //this.setState({ email: text })
             return false;
             // Its not a number
           }
-             
-        var axios = require('axios');
-            var data = JSON.stringify({
-                "id":Id,
+
+          var axios = require('axios');
+          var data = JSON.stringify({
+                "id":id,
                 "name":name,
-                "address":address
-            });
+                "email":email,
+                "phoneN":phoneN,
+                "password":password
+          });
 
-            var config = {
-                method: 'post',
-                url: 'http://10.0.2.2:8080/api/saveUser',
-                headers: { 
-                    'Content-Type': 'application/json'
-                },
-                data : data
-            };
+          var config = {
+            method: 'post',
+            url: 'http://10.0.2.2:8080/api/saveUser',
+            headers: { 
+              'Content-Type': 'application/json'
+            },
+            data : data
+          };
 
-            axios(config)
-            .then(function (response) {
-                console.log(JSON.stringify(response.data));
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+          axios(config)
+          .then(function (response) {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
 
-        // const signup = {name,Id,address}
-
-        // SignUpUserService.signUser(signup)
-        //     .then(
-        //         (response) => {
-
-        //     console.log(response.data)
-              
-        //     navigate('/')
-        // }
-        // )
-        // .catch(
-        //     error => {
-        //       console.log(error)
-        //       window.alert("username/email is already exist.Try again");
-        //       window.location.reload()
-        //     }
-        // )
-
-        //navigation.navigate('Screen-Login');
+        //   const { validate, isFieldInError, getErrorsInField, getErrorMessages } =
+        //   useValidation({
+        //     state: { name, email, id, password, 
+        //      confirmPassword 
+        //     },
+        //   });
+      
+        // const _onPressButton = () => {
+        //   validate({
+        //     name: { minlength: 3, maxlength: 7, required: true },
+        //     email: { email: true },
+        //     id: { numbers: true },
+        //     confirmPassword: { equalPassword: Password },
+        //   });
+        // };
      
     }
   
   const {colors} = useTheme();
 
-  const onPressHandlerFinish= () => {
-    navigation.navigate('Screen-Login');
-  };
+  // const onPressHandlerFinish= () => {
+  //   navigation.navigate('Screen-Login');
+  // };
 
   const onPressHandlerSignIn = () => {
     navigation.navigate('Screen-Login');
   };
 
+
+
   return (
-    <KeyboardAvoidingView style={styles.container}>
+    <View style={styles.container}>
       
       <View style={styles.header}>
         <Text style={styles.topic}>Sign Up</Text>
@@ -123,41 +126,56 @@ export default function LoginScreen({navigation}) {
         
         <View style={styles.action}>
             <FontAwesome name="user-o" color={colors.text} size={30} />
-            <TextInput placeholder="First Name"
+            <TextInput placeholder="Name"
                 style={[styles.textInput,{color: colors.text,},]}
-                 underlineColorAndroid="transparent"
+                underlineColorAndroid="transparent"
+                value={data.name}
+                onChangeText={setName}
+                
           />
         </View>
 
-        <View style={styles.action}>
+        {/* <View style={styles.action}>
             <FontAwesome name="user-o" color={colors.text} size={30} />
             <TextInput placeholder="Last Name"
                 style={[styles.textInput,{color: colors.text,},]}
-                underlineColorAndroid="transparent"         
+                underlineColorAndroid="transparent"   
+                value={setLastName}      
             />
-        </View>
+        </View> */}
 
         <View style={styles.action}>
             <FontAwesome name="user-o" color={colors.text} size={30} />
             <TextInput placeholder="Employee ID"
                 style={[styles.textInput,{color: colors.text,},]}
-                underlineColorAndroid="transparent"         
+                underlineColorAndroid="transparent" 
+                value={data.id}   
+                onChangeText={setId}     
             />
-        </View>
+        </View> 
 
         <View style={styles.action}>
             <FontAwesome name="user-o" color={colors.text} size={30} />
             <TextInput placeholder="E-mail"
                 style={[styles.textInput,{color: colors.text,},]}
-                underlineColorAndroid="transparent"         
+                underlineColorAndroid="transparent"  
+                value={data.email}   
+                onChangeText={setEmail}    
             />
+                {/* {isFieldInError('email') &&
+                getErrorsInField('email').map(errorMessage => (
+                  <Text>{errorMessage}</Text>
+                ))} */}
         </View>
 
         <View style={styles.action}>
             <FontAwesome name="user-o" color={colors.text} size={30} />
             <TextInput placeholder="Phone Number"
                 style={[styles.textInput,{color: colors.text,},]}
-                underlineColorAndroid="transparent"         
+                underlineColorAndroid="transparent"
+                value={data.phoneN}    
+                onChangeText={setPhoneN}  
+                keyboardType='phone-pad'   
             />
         </View>
 
@@ -165,14 +183,33 @@ export default function LoginScreen({navigation}) {
             <FontAwesome name="user-o" color={colors.text} size={30} />
             <TextInput placeholder="Password"
                 style={[styles.textInput,{color: colors.text,},]}
-                underlineColorAndroid="transparent"         
+                underlineColorAndroid="transparent" 
+                value={data.password}  
+                onChangeText={setPassword}    
+                secureTextEntry  
             />
         </View>
 
 
+
+
+{/* <TextInput
+        onChangeText={setConfirmPassword}
+        value={confirmPassword}
+        secureTextEntry={true}
+      />
+      {isFieldInError('confirmPassword') &&
+        getErrorsInField('confirmPassword').map(errorMessage => (
+          <Text>{errorMessage}</Text>
+        ))} */}
+
+
+
         <View style={styles.action2}>
-            <CustomButton onPressFunction={onPressHandlerFinish} title="Finish" />
+            <CustomButton onPressFunction={onPressHandler2} title="Finish" />
         </View>
+
+        
 
         <Text>Already Have an account?</Text>
         <View style={styles.action2}>
@@ -181,8 +218,21 @@ export default function LoginScreen({navigation}) {
             </TouchableOpacity>
         </View>
 
+{/* 
+        <TouchableOpacity onPress={onPressHandler2}>
+            <Text style={{color: '#009387', marginTop: 15}}>
+                Save details
+            </Text>
+        </TouchableOpacity> */}
+
+        <TouchableOpacity onPress={onPressHandler}>
+            <Text style={{color: '#009387', marginTop: 15}}>
+                Get details
+            </Text>
+        </TouchableOpacity>
+
       </View>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 

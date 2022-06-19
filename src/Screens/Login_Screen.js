@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {useTheme} from 'react-native-paper';
 import CustomButton from '../Components/Button';
+import { useNavigation } from '@react-navigation/native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -20,13 +21,87 @@ export default function LoginScreen({navigation}) {
   
   const {colors} = useTheme();
 
+  //constructor(){
+//     super();
+//     this.state={
+//       check:false,
+//       email: '',
+//     };
+//     this.validates = this.validates.bind(this);
+//   }
+
+//   CheckBoxText(){
+//       this.setState({
+//         check:!this.state.check,
+//       })
+//   }
+
+
+//   validates = () => { 
+
+//     let text = this.state.email; 
+//     let emailError = this.state.emails;
+//     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ; 
+//     if(reg.test(text) === false) 
+//     { 
+//     console.warn("Invalid email")
+//     this.setState({email:text}) 
+//     return false; 
+//     } 
+//     else { 
+//     this.setState({email:text}) 
+//     console.log("Email is Correct"); 
+//     } 
+// } 
+
+  const onPressHandlerSignIn = () => {
+    navigation.navigate('Screen-Welcome');
+
+  //   let [name, setName] = useState('');
+  //   let [password, setPassword] = useState('');
+	
+	// const navigation=useNavigation();
+
+  //   useEffect(() => {    
+  //       SignIn();
+  //   }, []);
+
+  //   fetch('http://10.0.2.2:8080/api/getUsers', {
+  //   method: 'POST',
+  //   headers: {
+  //       Accept: 'applicaion/json',
+  //       'Content-Type': 'applicaion/json',
+  //       },
+  //   body: JSON.stringify({
+  //       username: setName, //We send our previously declared username(this.state.username) to JSON format
+  //       password: setPassword,
+  //   }),
+  //   })
+    
+  //   .then((response) => response.JSON() ) //We are gonna handle the response as JSON
+  //   .then((res) => {       
+  //       if(res.success === true){ //If the user exist
+  //           AsyncStorage.setItem('user',res.user);
+  //           navigation.navigate('Screen-Welcome');
+  //       }
+  //       else {
+            
+  //           //alert(res.message);
+  //       }
+  //   })
+  };
+  
+  
+  
+
+
   const onPressHandlerSignUp = () => {
     navigation.navigate('Screen-SignUp');
   };
 
-  const onPressHandlerSignIn = () => {
-    navigation.navigate('Screen-Welcome');
-  };
+  // const onPressHandlerSignIn = () => {
+  //   navigation.navigate('Screen-Welcome');
+  // };
 
   const onPressHandlerForgetPass = () => {
     navigation.navigate('Screen-ForgetPass1');
@@ -70,7 +145,7 @@ export default function LoginScreen({navigation}) {
             ]}
             placeholder="Password"
             //onChangeText={(password) => this.setState({password}) }
-            onChangeText={password => setPassword}
+            //onChangeText={password => setPassword}
             underlineColorAndroid="transparent"
             secureTextEntry
           />
