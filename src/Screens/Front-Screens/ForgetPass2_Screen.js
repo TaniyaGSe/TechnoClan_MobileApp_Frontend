@@ -9,7 +9,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import {useTheme} from 'react-native-paper';
-import CustomButton from '../Components/Button';
+import CustomButton from '../../Components/Button';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';

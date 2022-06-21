@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { View, Text, StyleSheet,Pressable,TextInput,Button } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function OPDClaim({navigation}) {
+
+export default function ManagerScreen({navigation}) {
   
     const onPressHandler = () => {
       navigation.replace('Home');
@@ -11,7 +10,7 @@ export default function OPDClaim({navigation}) {
   
     return (
       <View style={styles.body}>
-        <Text style={styles.text}>OPD Claim</Text>
+        <Text style={styles.text}>Manager Screen</Text>
         <Pressable
           onPress={onPressHandler}
           style={({ pressed }) => ({ backgroundColor: pressed ? '#ddd' : '#0f0' })}
@@ -25,18 +24,18 @@ export default function OPDClaim({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  body : {
-    flex: 1, 
-    alignItems: 'center', 
-    //justifyContent: 'center',
-    backgroundColor: '#fff',
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    margin: 10,
-    color: '#000'
-  },
+    body : {
+      flex: 1, 
+      alignItems: 'center', 
+      //justifyContent: 'center',
+      backgroundColor: '#fff',
+    },
+    text: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      margin: 10,
+      color: '#000'
+    },
     view:{
         margin:10,
       },

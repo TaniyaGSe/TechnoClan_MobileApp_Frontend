@@ -7,9 +7,11 @@ import {
   TextInput,
   StyleSheet,
   KeyboardAvoidingView,
+  ScrollView
 } from 'react-native';
 import {useTheme} from 'react-native-paper';
-import CustomButton from '../Components/Button';
+import CustomButton from '../../Components/Button';
+import {Picker} from '@react-native-picker/picker';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -17,6 +19,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 
 export default function LoginScreen({navigation}) {
+
+  const [userName, setUserName] = useState('');
+  const [selectedValue, setSelectedValue] = useState('User');
   
   const {colors} = useTheme();
 
@@ -29,15 +34,54 @@ export default function LoginScreen({navigation}) {
   }
 
   return (
-    <KeyboardAvoidingView style={styles.container}>
+    <ScrollView style={styles.container}>
       
         <View style={styles.header}>
             <Text style={styles.topic}>Reset Password</Text>
         </View>
 
         <View style={styles.footer}>
+
+
+        <View style={styles.action}>
+            <TextInput
+                style={[styles.textInput,{
+                color: colors.text,
+              },
+            ]}
+            placeholder="Enter User Name"
+            //value={data.name}
+            onChangeText={setUserName}
+            underlineColorAndroid="transparent"
+            
+          />
+        </View>
+
+        <View style={{ marginTop:20,marginBottom:10}}>
+          <Text style={{width: 200,marginRight:50,marginLeft:50}}>Send Verification Code To : </Text>
+          <Picker
+            selectedValue={selectedValue}
+            style={{height: 50, width: 180,marginRight:50,marginLeft:50,borderColor:'#000'}}
+            //mode={"dialog"}
+            onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+            //onValueChange={(itemValue, itemIndex) => console.log(itemValue)}
+          >
+            <Picker.Item label="E-mail" value="E-mail" color="orange" />
+            <Picker.Item label="Mobile Number" value="Mobile Number" color="orange" />
+            
+          </Picker>
+        </View>
+
+        <View style={styles.row}>
+          <View style={{flexDirection: 'row',flex:1}}>
+            <CustomButton onPressFunction={onPressHandlerSubmit} title="Send" style={{width : '75%'}} />
+          </View>
+          <View style={{flexDirection: 'row',flex:1}}>
+            <CustomButton onPressFunction={onPressHandlerSubmit} title="Re-Send" style={{width : '75%'}} />
+          </View>                    
+        </View>
         
-            <View style={styles.row}>
+            {/* <View style={styles.row}>
                 <View style={styles.col}>
                     <View style={styles.action2}>
                     <Text>E-mail</Text>
@@ -49,18 +93,9 @@ export default function LoginScreen({navigation}) {
 
                 </View>
 
-                <View style={styles.col}>
-                    <View style={styles.action2}>
-                        <CustomButton onPressFunction={onPressHandlerSubmit} title="Send" />
-                    </View>
-                    <View style={styles.action2}>
-                        <CustomButton onPressFunction={onPressHandlerSubmit} title="Re-Send" />
-                    </View>
 
-                    
-                </View>
 
-            </View>
+            </View> */}
         
 
 
@@ -83,7 +118,7 @@ export default function LoginScreen({navigation}) {
             <CustomButton onPressFunction={onPressHandlerSubmit} title="Submit" />
         </View>
 
-        <Text>Already Have an account?</Text>
+        <Text>Remember Password ? </Text>
         <View style={styles.action2}>
             <TouchableOpacity onPress={onPressHandler}>
             <Text style={{color: '#009387', marginTop: -10}}>Sign In</Text>
@@ -91,7 +126,7 @@ export default function LoginScreen({navigation}) {
         </View>
 
       </View>
-    </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 
@@ -104,11 +139,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     paddingHorizontal: 20,
-    paddingBottom: 50,
+    paddingTop: 40,
+    paddingBottom: 40,
   },
   footer: {
     alignItems: 'center',
-    flex: 3,
+    flex: 5,
     backgroundColor: '#fff',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
@@ -131,7 +167,7 @@ const styles = StyleSheet.create({
 
   row:{
     flex:1,
-    flexDirection:'row'
+    flexDirection:'row',
   },
 
   text: {
@@ -160,5 +196,20 @@ const styles = StyleSheet.create({
     color: '#05375a',
     alignItems:'center'
   },
+
+  action: {
+    flexDirection: 'row',
+    marginTop: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f2f2f2',
+    paddingBottom: 5,
+  },
+  textInput: {
+    flex: 1,
+    marginTop: -12,
+    paddingLeft: 10,
+    color: '#05375a',
+  },
+
 
 });

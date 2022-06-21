@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { View, Text, StyleSheet,Pressable,TextInput,Button } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function ExpenseClaim({navigation}) {
+
+export default function AdminScreen({navigation}) {
   
     const onPressHandler = () => {
       navigation.replace('Home');
@@ -11,7 +10,7 @@ export default function ExpenseClaim({navigation}) {
   
     return (
       <View style={styles.body}>
-        <Text style={styles.text}>Expense Claim</Text>
+        <Text style={styles.text}>Admin Screen</Text>
         <Pressable
           onPress={onPressHandler}
           style={({ pressed }) => ({ backgroundColor: pressed ? '#ddd' : '#0f0' })}
