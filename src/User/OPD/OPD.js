@@ -3,9 +3,11 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import axios from "axios";
 
 import { ActivityIndicator, FlatList, Text,} from 'react-native';
 
@@ -15,21 +17,62 @@ export default function OPD({navigation}){
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  const getOPDs = async () => {
-     try {
-      const response = await fetch('http://10.0.2.2:8080/api/v2/opd/getOPDs');
-      const json = await response.json();
-      setData(json);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
+  const deleteOPD = async () => {
+    console.log("abc");
+    
+      var config = {
+        method: 'delete',
+        url: 'http://10.0.2.2:8080/api/v2/opd/deleteOPD/1',
+        headers: { }
+      };
+      
+      axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        alert("Claim Deleted successfully")
+        navigation.navigate(start)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      
     }
-  }
+    
 
-  useEffect(() => {
-    getOPDs();
-  }, []);
+  const getExpenseClaims = async  () => {
+    var axios = require('axios');
+    
+     var config = {
+     method: 'get',
+     url: 'http://10.0.2.2:8080/api/v2/opd/getOPDs',
+     headers: { 
+    'Content-Type': 'application/json'
+    },
+  //data : data
+   };
+
+    axios(config).then(function (response) {
+    console.log(JSON.stringify(response.data));
+    setData(response.data);
+     // setData(response.data);
+  }).catch(function (error) {
+  console.log(error);
+    });
+    }
+
+    Alert.alert(
+      'Alert',
+      'Edit or Delete?',
+      [
+        {text: 'cancel'},
+        {text: 'Edit',  onPress: () => navigation.navigate('Edit OPD')},
+        {text: 'Delete',onPress:(deleteOPD)},
+      ]
+    );
+
+    useEffect(() => {
+    getExpenseClaims();
+     }, []);
 
     return(
       <View style={styles.body}>
@@ -39,20 +82,21 @@ export default function OPD({navigation}){
       </Text>
       </View>
       <View style={styles.container}>
-      {isLoading ? <ActivityIndicator/> : (
+      {/* {isLoading ? <ActivityIndicator/> : ( */}
         <FlatList
           data={data}
           keyExtractor={({ id }, index) => id}
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.row}>
-            {/* // onPress={()=>{
-            //   navigation.navigate('Edit OPD');
-            // }} */}
+            <TouchableOpacity style={styles.row}
+            onPress={getExpenseClaims}>
           <FontAwesome5 
             name={'hospital-alt'}
             size={30}
             color={'#ffffff'}
           />
+            <Text style={styles.rowText}>
+            OPD ID:{item.opdid}
+            </Text>
             <Text style={styles.rowText}>
             Description:{item.description}
             </Text>
@@ -65,7 +109,7 @@ export default function OPD({navigation}){
             </TouchableOpacity>
           )}
         />
-      )}
+      {/* )} */}
          <TouchableOpacity style={styles.button} 
         onPress={()=>{
           navigation.navigate('Claim a new OPD');

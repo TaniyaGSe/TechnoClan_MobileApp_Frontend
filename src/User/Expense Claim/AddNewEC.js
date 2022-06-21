@@ -4,12 +4,15 @@ import {
   Text,
   View,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  Keyboard
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import {Picker} from "@react-native-picker/picker";
 import { useNavigation } from '@react-navigation/native'; 
 
 export default function AddNewE_Claim(){
+  var axios = require('axios');
 
   const [bu_dept,setBu_Dept] = useState("");
   const [ project,setProject]=useState("");
@@ -66,34 +69,60 @@ export default function AddNewE_Claim(){
     //   // Its not a number
     // }
 
-    try {
-      fetch('http://10.0.2.2:8080/api/v1/expenseclaim/saveExpenseClaim', {
-  method: 'POST',
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    bu_dept,
-    project,
-    extension_No,
-    customer,
-    location,
-    particulars,
-    amount,
-  })
+//     try {
+//       fetch('http://10.0.2.2:8080/api/v1/expenseclaim/saveExpenseClaim', {
+//   method: 'POST',
+//   headers: {
+//     Accept: 'application/json',
+//     'Content-Type': 'application/json'
+//   },
+//   body: JSON.stringify({
+//     bu_dept,
+//     project,
+//     extension_No,
+//     customer,
+//     location,
+//     particulars,
+//     amount,
+//   })
  
-})
+// })
 
 alert('Expense claimed successfully')
 navigation.navigate('Expense Claim' )
-    } catch (error) {
-      console.error(error);
+    // } catch (error) {
+    //   console.error(error);
+    // }
+
+    var config = {
+      method: 'post',
+      url: 'http://10.0.2.2:8080/api/v1/expenseclaim/saveExpenseClaim',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : JSON.stringify({
+        bu_dept,
+        project,
+        extension_No,
+        customer,
+        location,
+        particulars,
+        amount,
+      })
+    };
+    
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
     }
-
-	}
-
+    
     return(
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} 
+      accessible={false}>
       <View style={styles.body}>
         <View style={styles.header}>
         <Text style={styles.text}>
@@ -111,6 +140,7 @@ navigation.navigate('Expense Claim' )
         />
         <TextInput  onChangeText={newText => setExtension_No(newText)} style={styles.input}
         placeholder='Extension No'
+        keyboardType='numeric'
         value={extension_No}
         />
         <TextInput  onChangeText={newText => setCustomer(newText)} style={styles.input}
@@ -127,9 +157,10 @@ navigation.navigate('Expense Claim' )
         />
         <TextInput  onChangeText={newText => setAmount(newText)} style={styles.input}
         placeholder='Amount'
+        keyboardType='numeric'
         value={amount}
         />
-        <Picker style={styles.picker}
+        {/* <Picker style={styles.picker}
           selectedValue={Enable}
           mode={"dialog"}
           onValueChange={(itemValue) => setEnable(itemValue)}
@@ -137,7 +168,7 @@ navigation.navigate('Expense Claim' )
         <Picker.Item label="Billable" value="Bill" />
         <Picker.Item label="Non-Billable" value="Non" />
         <Picker.Item label="Fixed-Price" value="Fixed" />
-        </Picker>
+        </Picker> */}
       
         <TouchableOpacity style={styles.background}
           onPress={claimExpense}>
@@ -148,6 +179,7 @@ navigation.navigate('Expense Claim' )
 
         </View>
       </View>
+      </TouchableWithoutFeedback>
     );
   }
 

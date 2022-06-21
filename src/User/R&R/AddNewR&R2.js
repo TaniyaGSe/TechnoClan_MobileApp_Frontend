@@ -1,4 +1,4 @@
-import React , {useState}from 'react'; //usestate for hooks
+import React , {useState} from 'react'; //usestate for hooks
 import {
   StyleSheet,
   Text,
@@ -11,7 +11,7 @@ import {
 import { TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
-export default function AddNew_RAndR(){
+export default function AddNew_RAndR2(){
 
   const [extension_no,setExtension_not] = useState("");
   const [customer ,setCustomer]=useState("");
@@ -114,7 +114,7 @@ axios(config)
       <View style={styles.body}>
         <View style={styles.header}>
         <Text style={styles.text}>
-        Add a new R&R
+        Edit R&R
         </Text>
         </View>
         <View style={styles.container}>

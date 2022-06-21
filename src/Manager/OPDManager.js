@@ -11,52 +11,50 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { ActivityIndicator, FlatList, Text,} from 'react-native';
 
 
-export default function RAndR({navigation}){
+export default function OPD_Manager({navigation}){
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  const getRAndRs = async  () => {
-
-    Alert.alert(
-      'Alert',
-      'Edit or Delete?',
-      [
-        {text: 'cancel'},
-        {text: 'Edit',  onPress: () => navigation.navigate('Edit RR')},
-        {text: 'Delete',onPress: () => alert('Do you want to delete the R&R?')},
-      ]
-    );
-
+  const getExpenseClaims = async  () => {
     var axios = require('axios');
     
      var config = {
      method: 'get',
-     url: 'http://10.0.2.2:8080/api/v3/randr/getRAndRs',
+     url: 'http://10.0.2.2:8080/api/v2/opd/getOPDs',
      headers: { 
     'Content-Type': 'application/json'
     },
-   //data : data
+  //data : data
    };
 
     axios(config).then(function (response) {
     console.log(JSON.stringify(response.data));
     setData(response.data);
      // setData(response.data);
-   }).catch(function (error) {
-   console.log(error);
+  }).catch(function (error) {
+  console.log(error);
     });
     }
+    Alert.alert(
+      'Alert',
+      'Do you want to accept the OPD',
+      [
+        {text: 'cancel'},
+        {text: 'NO'},
+        {text: 'YES'},
+      ]
+    );
 
     useEffect(() => {
-    getRAndRs();
+    getExpenseClaims();
      }, []);
 
     return(
       <View style={styles.body}>
       <View style={styles.header}>
       <Text style={styles.text}>
-        Claimed R&Rs
+        Claimed OPDs
       </Text>
       </View>
       <View style={styles.container}>
@@ -66,65 +64,33 @@ export default function RAndR({navigation}){
           keyExtractor={({ id }, index) => id}
           renderItem={({ item }) => (
             <TouchableOpacity style={styles.row}
-            onPress={getRAndRs}>
-            <FontAwesome5 
-             name={'star'}
-             size={30}
-             color={'#F89880'}
-            />
+            onPress={getExpenseClaims}>
+          <FontAwesome5 
+            name={'hospital-alt'}
+            size={30}
+            color={'#ffffff'}
+          />
             <Text style={styles.rowText}>
-            R and R ID:{item.randrid}
+            OPD ID:{item.opdid}
             </Text>
             <Text style={styles.rowText}>
-            Extension No:{item.extension_no}
+            Description:{item.description}
             </Text>
             <Text style={styles.rowText}>
-            Customer:{item.customer}
+            Receipt No:{item.receiptno}
             </Text>
             <Text style={styles.rowText}>
-            Location:{item.location}
-            </Text>
-            <Text style={styles.rowText}>
-            Particulars:{item.particulars}
-            </Text>
-            <Text style={styles.rowText}>
-            Amount:{item.amount}
+            amount:{item.opdamount}
             </Text>
             </TouchableOpacity>
           )}
         />
-      {/* )} */}
-         <TouchableOpacity style={styles.button} 
-          onPress={()=>{
-          navigation.navigate('Add new R And R');
-        }}
-        >
-          <FontAwesome5 style={styles.plus}
-          name={'plus'}
-          size={30}
-          color={'#F89880'}
-          />
-        </TouchableOpacity>
       </View>
       </View>
     )
   }
 
   const styles = StyleSheet.create({
-    button:{
-      width:60,
-      height:60,
-      borderRadius:30,
-      backgroundColor:'#000000',
-      justifyContent:'center',
-      position:'absolute',
-      bottom:25,
-      right:5,
-      elevation:5,
-    },
-    plus:{
-      left:15,
-    },
     body:{
       flex:1,
       // justifyContent:'center',
