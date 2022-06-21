@@ -4,6 +4,8 @@ import {
   Text,
   View,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  Keyboard
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native'; 
@@ -23,6 +25,7 @@ export default function Add_OPD(){
   const navigation=useNavigation();
 
   async function claimOPD() {
+    var axios = require('axios');
     if (!description.trim()) {
       alert('Please Enter Extension no');
       return;
@@ -42,30 +45,52 @@ export default function Add_OPD(){
     //   // Its not a number
     // }
 
-  try {
-    fetch('http://10.0.2.2:8080/api/v2/opd/saveOPD', {
-   method: 'POST',
-   headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-            },
-   body: JSON.stringify({
-      description,
-      receiptno,
-      opdamount,
-  })
+//   try {
+//     fetch('http://10.0.2.2:8080/api/v2/opd/saveOPD', {
+//    method: 'POST',
+//    headers: {
+//         Accept: 'application/json',
+//         'Content-Type': 'application/json'
+//             },
+//    body: JSON.stringify({
+//       description,
+//       receiptno,
+//       opdamount,
+//   })
 
-})
+// })
 
-     alert('OPD claimed successfully')
-        navigation.navigate('OPD' )
-      } catch (error) {
-           console.error(error);
+
+      // } catch (error) {
+      //      console.error(error);
+      // }
+      alert('OPD claimed successfully')
+      navigation.navigate('OPD' )
+      var config = {
+        method: 'post',
+        url: 'http://10.0.2.2:8080/api/v2/opd/saveOPD',
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        data : JSON.stringify({
+              description,
+              receiptno,
+              opdamount,
+        })
+      };
+      
+      axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
       }
-
-}
-
+      
     return(
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} 
+      accessible={false}>
       <View style={styles.body}>
         <View style={styles.header}>
         <Text style={styles.text}>
@@ -80,13 +105,13 @@ export default function Add_OPD(){
         />  
         <TextInput  onChangeText={newText => setReceiptno(newText)} style={styles.input}
         placeholder='Receipt No'
-        // keyboardType='numeric'
+        keyboardType='numeric'
         value={receiptno}
         />
         <TextInput  onChangeText={newText => setOpdamount(newText)} style={styles.input}
         placeholder='Amount'
         value={opdamount}
-        // keyboardType='numeric'
+        keyboardType='numeric'
         />
         <TouchableOpacity style={styles.background}
           onPress={claimOPD} >
@@ -96,6 +121,7 @@ export default function Add_OPD(){
         </TouchableOpacity>
       </View>
       </View>
+      </TouchableWithoutFeedback>
     );
   }
 

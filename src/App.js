@@ -10,6 +10,7 @@ import Add_OPD from './User/OPD/AddNewOPD';
 import AddNew_RAndR from './User/R&R/AddNewR&R';
 import AddNewE_Claim2 from './User/Expense Claim/AddNewEC2';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import SelectingPageUser from './User/ClaimSelectingPageUser';
 import {
   StyleSheet,
   Text,
@@ -17,19 +18,26 @@ import {
   Button,
   TouchableOpacity,
 } from 'react-native';
-
+import SelectingPageAdmin from './Admin/ClaimSelectingPageAdmin';
+import SelectingPageManager from './Manager/SelectingPageManager';
+import Expense_Claim_Manager from './Manager/ExpenseClaimManager';
+import OPD_Manager from './Manager/OPDManager';
+import RAndRManager from './Manager/RAndRManager';
+import RAndRAdmin from './Admin/RAndRAdmin';
+import GiveNewRAndR from './Admin/GiveNewRAndR';
+import AddNew_RAndR2	 from './User/R&R/AddNewR&R2';
 const Stack = createStackNavigator();
 
 function SelectingPage({navigation}){
 
 const onPressHandler1= () =>{
- navigation.navigate('Expense Claim');
+ navigation.navigate('User');
 }
-const onPressHandler2= () =>{
-  navigation.navigate('OPD');
-}
+// const onPressHandler2= () =>{
+//   navigation.navigate('Admin');
+// }
 const onPressHandler3= () =>{
-  navigation.navigate('Reward And Recognition');
+  navigation.navigate('Manager');
 }
 
   return(
@@ -52,34 +60,34 @@ const onPressHandler3= () =>{
       <TouchableOpacity style={styles.background}
       onPress={onPressHandler1}>
         <Text style={styles.textB}>
-          Expense Claim
+          User
         </Text>
         <FontAwesome5
-          name={'money-check'}
+          name={'user'}
           size={30}
           color={'#ffffff'}
           />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.background}
+      {/* <TouchableOpacity style={styles.background}
       onPress={onPressHandler2}>
         <Text style={styles.textB}>
-          OPD
+          Admin
         </Text>
         <FontAwesome5 style={styles.plus}
-          name={'hospital-user'}
+          name={'users-cog'}
           size={30}
           color={'#ffffff'}
           />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <TouchableOpacity style={styles.background}
       onPress={onPressHandler3}>
         <Text style={styles.textB}>
-          Reward and Recognition
+          Manager
         </Text>
         <FontAwesome5 style={styles.plus}
-          name={'grin-stars'}
+          name={'user-tie'}
           size={30}
           color={'#ffffff'}
           />
@@ -121,21 +129,21 @@ function App(){
         component={AddNewE_Claim}
         />
          <Stack.Screen
-        name="View the new claim"
+        name="Edit EC"
         component={AddNewE_Claim2}
         />
         <Stack.Screen
         name="Claim a new OPD"
         component={Add_OPD}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
         name="Edit OPD"
         component={Add_OPD2}
-        /> */}
-        {/* <Stack.Screen
-        name="Claim a new R&R"
-        component={Add_RAndR}
-        /> */}
+        />
+        <Stack.Screen
+        name="Edit RR"
+        component={AddNew_RAndR2}
+        />
         <Stack.Screen
         name="Add new R And R"
         component={AddNew_RAndR}
@@ -144,6 +152,38 @@ function App(){
         name="Edit"
         component={AddNewE_Claim2}
         />
+        <Stack.Screen
+        name="User"
+        component={SelectingPageUser}
+        />
+        {/* <Stack.Screen
+        name="Admin"
+        component={SelectingPageAdmin}
+        /> */}
+        <Stack.Screen
+        name="Manager"
+        component={SelectingPageManager}
+        />
+        <Stack.Screen
+        name="ECManager"
+        component={Expense_Claim_Manager}
+        />
+        <Stack.Screen
+        name="OPDManager"
+        component={OPD_Manager}
+        />
+        <Stack.Screen
+        name="Reward And Recognition Manager"
+        component={RAndRManager}
+        />
+        {/* <Stack.Screen
+        name="Reward And Recognition Admin"
+        component={RAndRAdmin}
+        /> */}
+        {/* <Stack.Screen
+        name="Give new R And R"
+        component={GiveNewRAndR}
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   )

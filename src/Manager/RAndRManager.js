@@ -8,26 +8,14 @@ import {
 import { useRoute } from '@react-navigation/native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
-import { ActivityIndicator, FlatList, Text,} from 'react-native';
+import {FlatList, Text,} from 'react-native';
 
 
-export default function RAndR({navigation}){
+export default function RAndRManager({navigation}){
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-
-  const getRAndRs = async  () => {
-
-    Alert.alert(
-      'Alert',
-      'Edit or Delete?',
-      [
-        {text: 'cancel'},
-        {text: 'Edit',  onPress: () => navigation.navigate('Edit RR')},
-        {text: 'Delete',onPress: () => alert('Do you want to delete the R&R?')},
-      ]
-    );
-
+  const getExpenseClaims = async  () => {
     var axios = require('axios');
     
      var config = {
@@ -48,8 +36,19 @@ export default function RAndR({navigation}){
     });
     }
 
+    Alert.alert(
+      'Alert',
+      'Do you want to accept the R&R',
+      [
+        {text: 'cancel'},
+        {text: 'NO'},
+        {text: 'YES'},
+        // {text: 'YES', onPress: () => console.warn('YES Pressed')},
+      ]
+    );
+
     useEffect(() => {
-    getRAndRs();
+    getExpenseClaims();
      }, []);
 
     return(
@@ -65,8 +64,7 @@ export default function RAndR({navigation}){
           data={data}
           keyExtractor={({ id }, index) => id}
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.row}
-            onPress={getRAndRs}>
+            <TouchableOpacity style={styles.row} onPress={getExpenseClaims}>
             <FontAwesome5 
              name={'star'}
              size={30}
@@ -93,38 +91,12 @@ export default function RAndR({navigation}){
             </TouchableOpacity>
           )}
         />
-      {/* )} */}
-         <TouchableOpacity style={styles.button} 
-          onPress={()=>{
-          navigation.navigate('Add new R And R');
-        }}
-        >
-          <FontAwesome5 style={styles.plus}
-          name={'plus'}
-          size={30}
-          color={'#F89880'}
-          />
-        </TouchableOpacity>
       </View>
       </View>
     )
   }
 
   const styles = StyleSheet.create({
-    button:{
-      width:60,
-      height:60,
-      borderRadius:30,
-      backgroundColor:'#000000',
-      justifyContent:'center',
-      position:'absolute',
-      bottom:25,
-      right:5,
-      elevation:5,
-    },
-    plus:{
-      left:15,
-    },
     body:{
       flex:1,
       // justifyContent:'center',
