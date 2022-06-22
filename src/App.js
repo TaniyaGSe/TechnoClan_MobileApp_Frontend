@@ -1,263 +1,139 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import React , {useState} from 'react'; //usestate for hooks
-import Expense_Claim from './User/Expense Claim/ExpenseClaim';
-import OPD from './User/OPD/OPD';
-import RAndR from './User/R&R/R&R';
-import AddNewE_Claim from './User/Expense Claim/AddNewEC';
-import Add_OPD2 from './User/OPD/AddNewOPD2';
-import Add_OPD from './User/OPD/AddNewOPD';
-import AddNew_RAndR from './User/R&R/AddNewR&R';
-import AddNewE_Claim2 from './User/Expense Claim/AddNewEC2';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-import SelectingPageUser from './User/ClaimSelectingPageUser';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TouchableOpacity,
-} from 'react-native';
-import SelectingPageAdmin from './Admin/ClaimSelectingPageAdmin';
-import SelectingPageManager from './Manager/SelectingPageManager';
-import Expense_Claim_Manager from './Manager/ExpenseClaimManager';
-import OPD_Manager from './Manager/OPDManager';
-import RAndRManager from './Manager/RAndRManager';
-import RAndRAdmin from './Admin/RAndRAdmin';
-import GiveNewRAndR from './Admin/GiveNewRAndR';
-import AddNew_RAndR2	 from './User/R&R/AddNewR&R2';
-const Stack = createStackNavigator();
+import * as React from 'react';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-function SelectingPage({navigation}){
+import LoginScreen from './Screens/Front-Screens/Login_Screen';
+import SignUpScreen from './Screens/Front-Screens/SignUp_Screen';
+// import WelcomeScreen from './Screens/Front-Screens/Welcome_Screen';
+import ForgetPass1Screen from './Screens/Front-Screens/ForgetPass1_Screen';
+import ForgetPass2Screen from './Screens/Front-Screens/ForgetPass2_Screen';
+// import NotificationScreen from './Screens/Front-Screens/Notification';
+// import SettingScreen from './Screens/Front-Screens/Settings';
 
-const onPressHandler1= () =>{
- navigation.navigate('User');
-}
-// const onPressHandler2= () =>{
-//   navigation.navigate('Admin');
-// }
-const onPressHandler3= () =>{
-  navigation.navigate('Manager');
-}
+import AdminScreen from './Screens/Claims/Admin/AdminScreen';
 
-  return(
-    <View style={styles.body}>
-      <View style={styles.header}>
-      {/* <View style={styles.headerSub}>  */}
-      {/* <Text style={styles.text}>
-        Select claim type
-      </Text> */}
-      {/* </View> */}
-      </View>
-      <View style={styles.container}>
-      {/* <View style={styles.button}> */}
-      {/* <Button
-      onPress={onPressHandler1}
-      color="#000000"
-      title="Expense Claim"
-      /> */}
+import RAndRAdmin from './Screens/Claims/Admin/RAndRAdmin';
+import GiveNewRAndR from './Screens/Claims/Admin/GiveNewRAndR';
 
-      <TouchableOpacity style={styles.background}
-      onPress={onPressHandler1}>
-        <Text style={styles.textB}>
-          User
-        </Text>
-        <FontAwesome5
-          name={'user'}
-          size={30}
-          color={'#ffffff'}
-          />
-      </TouchableOpacity>
+import UserScreen from './Screens/Claims/User/UserScreen';
 
-      {/* <TouchableOpacity style={styles.background}
-      onPress={onPressHandler2}>
-        <Text style={styles.textB}>
-          Admin
-        </Text>
-        <FontAwesome5 style={styles.plus}
-          name={'users-cog'}
-          size={30}
-          color={'#ffffff'}
-          />
-      </TouchableOpacity> */}
+import Expense_Claim from './Screens/Claims/User/Expense Claim/ExpenseClaim';
+import AddNewE_Claim from './Screens/Claims/User/Expense Claim/AddNewEC';
+import AddNewE_Claim2 from './Screens/Claims/User/Expense Claim/AddNewEC2';
+// import OPD from './Screens/Claims/User/OPD/OPD';
+// import Add_OPD2 from './Screens/Claims/User/OPD/AddNewOPD2';
+// import Add_OPD from './Screens/Claims/User/OPD/AddNewOPD';
+// import RAndR from './Screens/Claims/User/R&R/R&R';
+// import AddNew_RAndR from './Screens/Claims/User/R&R/AddNewR&R';
+// import AddNew_RAndR2	 from './Screens/Claims/User/R&R/AddNewR&R2';
 
-      <TouchableOpacity style={styles.background}
-      onPress={onPressHandler3}>
-        <Text style={styles.textB}>
-          Manager
-        </Text>
-        <FontAwesome5 style={styles.plus}
-          name={'user-tie'}
-          size={30}
-          color={'#ffffff'}
-          />
-      </TouchableOpacity>
-      </View>
-      </View>
-    // </View>
-  )
-}
 
-function App(){
-  return(
+import ManagerScreen from './Screens/Claims/Manager/ManagerScreen';
+
+import Expense_Claim_Manager from './Screens/Claims/Manager/ExpenseClaimManager';
+import OPD_Manager from './Screens/Claims/Manager/OPDManager';
+import RAndRManager from './Screens/Claims/Manager/RAndRManager';
+
+
+
+const Stack = createNativeStackNavigator();
+
+function App() {
+  return (
+    // <NavigationContainer independent={true}>
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{
-        headerStyle:{
-          backgroundColor:'#000000 '
-        },
-        headerShown: false,
-        headerTintColor:'#000000'
-      }}>
+      <Stack.Navigator
+        screenOptions={{
+          header: () => null,
+        }}>
         <Stack.Screen
-        name="Welcome"
-        component={SelectingPage}
+          name="Screen-Login"
+          component={LoginScreen}
+          // options = {{
+          //   header: () => null
+          // }}
         />
-         <Stack.Screen
-        name="Expense Claim"
-        component={Expense_Claim}
-        />
-         <Stack.Screen
-        name="OPD"
-        component={OPD}
-        />
-         <Stack.Screen
-        name="Reward And Recognition"
-        component={RAndR}
-        />
-         <Stack.Screen
-        name="Add a new claim"
-        component={AddNewE_Claim}
-        />
-         <Stack.Screen
-        name="Edit EC"
-        component={AddNewE_Claim2}
-        />
-        <Stack.Screen
-        name="Claim a new OPD"
-        component={Add_OPD}
-        />
-        <Stack.Screen
-        name="Edit OPD"
-        component={Add_OPD2}
-        />
-        <Stack.Screen
-        name="Edit RR"
-        component={AddNew_RAndR2}
-        />
-        <Stack.Screen
-        name="Add new R And R"
-        component={AddNew_RAndR}
-        />
-         <Stack.Screen
-        name="Edit"
-        component={AddNewE_Claim2}
-        />
-        <Stack.Screen
-        name="User"
-        component={SelectingPageUser}
-        />
-        {/* <Stack.Screen
-        name="Admin"
-        component={SelectingPageAdmin}
-        /> */}
-        <Stack.Screen
-        name="Manager"
-        component={SelectingPageManager}
-        />
-        <Stack.Screen
-        name="ECManager"
-        component={Expense_Claim_Manager}
-        />
-        <Stack.Screen
-        name="OPDManager"
-        component={OPD_Manager}
-        />
-        <Stack.Screen
-        name="Reward And Recognition Manager"
-        component={RAndRManager}
-        />
-        {/* <Stack.Screen
-        name="Reward And Recognition Admin"
-        component={RAndRAdmin}
-        /> */}
-        {/* <Stack.Screen
-        name="Give new R And R"
-        component={GiveNewRAndR}
-        /> */}
+
+        <Stack.Screen name="Screen-SignUp" component={SignUpScreen} />
+
+        {/* Stack.Screen name="Screen-Welcome" component={Home} /> */}
+
+        <Stack.Screen name="Screen-ForgetPass1" component={ForgetPass1Screen} />
+
+        <Stack.Screen name="Screen-ForgetPass2" component={ForgetPass2Screen} />
+
+        <Stack.Screen name="AdminScreen" component={AdminScreen} />
+
+        <Stack.Screen name="UserScreen" component={UserScreen} />
+      
+        <Stack.Screen name="Expense Claim" component={Expense_Claim} />
+        <Stack.Screen name="Add a new claim" component={AddNewE_Claim} />
+        <Stack.Screen name="Edit EC" component={AddNewE_Claim2} />
+        <Stack.Screen name="Edit" component={AddNewE_Claim2} />
+        {/* <Stack.Screen name="OPD" component={OPD} />        
+        <Stack.Screen name="Claim a new OPD" component={Add_OPD} />
+        <Stack.Screen name="Edit OPD" component={Add_OPD2} />
+        <Stack.Screen name="Reward And Recognition" component={RAndR} />
+        <Stack.Screen name="Edit RR" component={AddNew_RAndR2} />
+        <Stack.Screen name="Add new R And R" component={AddNew_RAndR} /> */}
+        
+
+        <Stack.Screen name="ManagerScreen" component={ManagerScreen} />
+        <Stack.Screen name="ECManager" component={Expense_Claim_Manager} />
+        <Stack.Screen name="OPDManager" component={OPD_Manager} />
+        <Stack.Screen name="Reward And Recognition Manager" component={RAndRManager} />
+
+        <Stack.Screen name="Reward And Recognition Admin" component={RAndRAdmin} />
+        <Stack.Screen name="Give new R And R" component={GiveNewRAndR} />
       </Stack.Navigator>
     </NavigationContainer>
-  )
+  );
 }
 
-const styles = StyleSheet.create({
-  body:{
-    flex:1,
-    // justifyContent:'center',
-    // alignItems:'center',
-    backgroundColor:'#F89880',
-  },
-  header:{
-    flex:2,
-    backgroundColor:'#F89880',
-    // borderRadius:50,
-    // marginLeft:10,
-    // marginRight:10,
-    // marginBottom:10,
-    // marginTop:20,
-  },
-  // headerSub:{
-  //   backgroundColor:'eaa9ac',
-  //   borderRadius:40,
-  //   marginLeft:20,
-  //   marginRight:20,
-  //   marginBottom:20,
-  //   marginTop:30,
-  // },
-  text:{
-    fontSize:50,
-    fontWeight:'bold',
-    margin:40,
-    color:'#ffffff',
-  },
-  background:{
-    backgroundColor: '#000000',
-    // marginBottom:20,
-    // marginTop:40,
-    // // margin:0,
-    // marginLeft: '15%',
-    width:'70%',
-    height: '15%',
-    justifyContent:'center',
-    alignItems:'center',
-    borderRadius:60,
-    elevation:30,
-    marginTop:30,
-    marginHorizontal:60,
-    marginVertical:10,
-    paddingHorizontal:20,
-  },
-  textB:{
-    fontSize:16,
-    marginBottom: 10,
-    marginTop: 1,
-    marginStart:1,
-    // textAlign:'left',
-    marginLeft:10,
-    color:'#ffffff',
-    fontWeight:'bold',
-  },
-  container:{
-    flex:6,
-    backgroundColor:'#F89880',
-    // borderRadius:50,
-    // marginLeft:20,
-    // marginRight:20,
-    // marginBottom:30,
-    borderTopRightRadius:30,
-    borderTopLeftRadius:30,
-    marginTop:10,
-  }
-  
-})
+const Tab = createBottomTabNavigator();
 
+function Home({navigation}) {
+  return (
+    <NavigationContainer independent={true}>
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused, size, color}) => {
+            let iconName;
+
+            if (route.name === 'Screen-Notifications') {
+              iconName = 'bell';
+              size = focused ? 25 : 20;
+            } else if (route.name === 'Screen-Welcome') {
+              iconName = 'house';
+              size = focused ? 25 : 20;
+            } else if (route.name === 'Screen-Settings') {
+              iconName = 'fa-solid fa-gear';
+              size = focused ? 25 : 20;
+            }
+
+            return <FontAwesome5 name={iconName} size={size} color={color} />;
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: '#f0f',
+          inactiveTintColor: '#555',
+          activeBackgroundColor: '#999',
+          inactiveBackgroundColor: '#fff',
+          showLabel: false,
+          labelStyle: {fontSize: 14},
+        }}>
+        <Tab.Screen name="Screen-Welcome" component={WelcomeScreen} />
+        <Tab.Screen
+          name="Screen-Notifications"
+          component={NotificationScreen}
+        />
+
+        <Tab.Screen name="Screen-Settings" component={SettingScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
 export default App;
