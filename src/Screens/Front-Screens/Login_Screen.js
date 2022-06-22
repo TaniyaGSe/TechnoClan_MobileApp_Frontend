@@ -21,7 +21,7 @@ export default function LoginScreen({navigation}) {
   const {colors} = useTheme();
 
   const [data, setData] = useState('');
-  const [userName, setUserName] = useState('');
+  const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
   const onPressHandlerSignUp = () => {
@@ -29,10 +29,20 @@ export default function LoginScreen({navigation}) {
   };
 
   const onPressHandlerSignIn = () => {
+
+    if (!username.trim()) {
+      alert('Please Enter User Name');
+      return;
+    }
+    if (!password.trim()) {
+      alert('Please Enter password');
+      return;
+    }
+
     var axios = require('axios');
 
     var data = JSON.stringify({
-      username: userName,
+      username: username,
       password: password,
     });
 
@@ -65,6 +75,7 @@ export default function LoginScreen({navigation}) {
                 .then(value => {
                     if (value === "ROLE_USER") {
                       navigation.navigate('UserScreen');
+                      //navigation.navigate('AdminScreen');
                       console.log(roles)                                       
                     }else if(value === "ROLE_ADMIN"){
                       navigation.navigate('AdminScreen');
@@ -77,8 +88,8 @@ export default function LoginScreen({navigation}) {
 
       })
       .catch(function (error) {
-        console.log(error);
-        window.alert("wrong username/password.Try again");
+        console.log(error);       
+        window.alert("wrong username/password.Try again");        
         window.location.reload()
       });
 
@@ -88,6 +99,10 @@ export default function LoginScreen({navigation}) {
   const onPressHandlerForgetPass = () => {
     navigation.navigate('Screen-ForgetPass1');
   };
+
+  // useEffect(() => {
+  //   SelectingPageAdmin();
+  // }, []);
 
   return (
     <KeyboardAvoidingView style={styles.container}>
@@ -102,7 +117,7 @@ export default function LoginScreen({navigation}) {
             placeholder="User Name"
             style={[styles.textInput, {color: colors.text}]}
             underlineColorAndroid="transparent"
-            value={data.userName}
+            value={data.username}
             onChangeText={setUserName}
           />
         </View>

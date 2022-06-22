@@ -1,6 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React , {useState} from 'react'; //usestate for hooks
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     StyleSheet,
     Text,
@@ -12,6 +13,8 @@ import {
   const Stack = createStackNavigator();
   
  export default function SelectingPageUser({navigation}){
+
+  const [data, setData] = useState('');
   
   const onPressHandler1= () =>{
    navigation.navigate('Expense Claim');
@@ -32,6 +35,14 @@ import {
       {/* </View> */}
       </View>
       <View style={styles.container}>
+
+      {/* <Text>{"Welcome "}+{AsyncStorage.getItem('firstName')}+{" "}+{AsyncStorage.getItem('lastName')}</Text> */}
+      {/* let firstName = AsyncStorage.getItem('firstName')
+          
+          <Text>firstName</Text> */}
+          {/* console.log(firstName);
+       */}
+
       {/* <View style={styles.button}> */}
       {/* <Button
       onPress={onPressHandler1}

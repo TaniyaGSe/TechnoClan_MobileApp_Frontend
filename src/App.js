@@ -14,8 +14,32 @@ import ForgetPass2Screen from './Screens/Front-Screens/ForgetPass2_Screen';
 // import SettingScreen from './Screens/Front-Screens/Settings';
 
 import AdminScreen from './Screens/Claims/Admin/AdminScreen';
-import ManagerScreen from './Screens/Claims/Manager/ManagerScreen';
+
+import AddRandR from './Screens/Claims/Admin/AddR&R';
+import GiveNewRAndR from './Screens/Claims/Admin/GiveNewRAndR';
+import AddOPD from './Screens/Claims/Admin/AddOPD';
+import GiveOPDAmount from './Screens/Claims/Admin/GiveOPDAmount';
+
 import UserScreen from './Screens/Claims/User/UserScreen';
+
+import Expense_Claim from './Screens/Claims/User/Expense Claim/ExpenseClaim';
+import AddNewE_Claim from './Screens/Claims/User/Expense Claim/AddNewEC';
+import AddNewE_Claim2 from './Screens/Claims/User/Expense Claim/AddNewEC2';
+// import OPD from './Screens/Claims/User/OPD/OPD';
+// import Add_OPD2 from './Screens/Claims/User/OPD/AddNewOPD2';
+// import Add_OPD from './Screens/Claims/User/OPD/AddNewOPD';
+// import RAndR from './Screens/Claims/User/R&R/R&R';
+// import AddNew_RAndR from './Screens/Claims/User/R&R/AddNewR&R';
+// import AddNew_RAndR2	 from './Screens/Claims/User/R&R/AddNewR&R2';
+
+
+import ManagerScreen from './Screens/Claims/Manager/ManagerScreen';
+
+import Expense_Claim_Manager from './Screens/Claims/Manager/ExpenseClaimManager';
+import OPD_Manager from './Screens/Claims/Manager/OPDManager';
+import RAndRManager from './Screens/Claims/Manager/RAndRManager';
+
+
 
 const Stack = createNativeStackNavigator();
 
@@ -27,7 +51,6 @@ function App() {
         screenOptions={{
           header: () => null,
         }}>
-        
         <Stack.Screen
           name="Screen-Login"
           component={LoginScreen}
@@ -47,9 +70,29 @@ function App() {
         <Stack.Screen name="AdminScreen" component={AdminScreen} />
 
         <Stack.Screen name="UserScreen" component={UserScreen} />
+      
+        <Stack.Screen name="Expense Claim" component={Expense_Claim} />
+        <Stack.Screen name="Add a new claim" component={AddNewE_Claim} />
+        <Stack.Screen name="Edit EC" component={AddNewE_Claim2} />
+        <Stack.Screen name="Edit" component={AddNewE_Claim2} />
+        {/* <Stack.Screen name="OPD" component={OPD} />        
+        <Stack.Screen name="Claim a new OPD" component={Add_OPD} />
+        <Stack.Screen name="Edit OPD" component={Add_OPD2} />
+        <Stack.Screen name="Reward And Recognition" component={RAndR} />
+        <Stack.Screen name="Edit RR" component={AddNew_RAndR2} />
+        <Stack.Screen name="Add new R And R" component={AddNew_RAndR} /> */}
+        
 
         <Stack.Screen name="ManagerScreen" component={ManagerScreen} />
-        
+        <Stack.Screen name="ECManager" component={Expense_Claim_Manager} />
+        <Stack.Screen name="OPDManager" component={OPD_Manager} />
+        <Stack.Screen name="Reward And Recognition Manager" component={RAndRManager} />
+
+        <Stack.Screen name="AddRandR" component={AddRandR} />
+        <Stack.Screen name="Give new R And R" component={GiveNewRAndR} />
+        <Stack.Screen name="AddOPD" component={AddOPD} />
+        <Stack.Screen name="GiveOPDAmount" component={GiveOPDAmount} />
+      
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -15,10 +15,9 @@ import CustomButton from '../../../Components/Button';
 export default function GiveNewRAndR() {
   const [data, setData] = useState('');
 
-  const [employee, setEmpId] = useState('');
+  const [empId, setEmpId] = useState('');
   const [amount, setAmount] = useState('');
-  const [addedDate, setAddDate] = useState('');
-  const [expireDate, setExpDate] = useState('');
+  const [expDate, setExpDate] = useState('');
 
   const navigation=useNavigation();
 
@@ -26,15 +25,14 @@ export default function GiveNewRAndR() {
     var axios = require('axios');
     
     var data = JSON.stringify({
-      expireDate: expireDate,
+      expireDate: expDate,
       amount: amount,
-      addedDate: addedDate,
-      employee: employee,
+      employee: empId,
     });
 
     var config = {
       method: 'post',
-      url: 'http://10.0.2.2:8080/reward/',
+      url: 'http://10.0.2.2:8080/opdamount/',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -48,13 +46,13 @@ export default function GiveNewRAndR() {
       .catch(function (error) {
         console.log(error);
       });
-      navigation.navigate('AddRandR');
+      navigation.navigate('AddOPD');
   };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.body}>
         <View style={styles.header}>
-          <Text style={styles.text}>Give a new R&R</Text>
+          <Text style={styles.text}>Add OPD Amount</Text>
         </View>
 
         <View style={styles.container}>
@@ -62,7 +60,7 @@ export default function GiveNewRAndR() {
             onChangeText={newText => setEmpId(newText)}
             style={styles.input}
             placeholder="Employee ID"
-            value={data.employee}
+            value={data.empId}
           />
           <TextInput
             onChangeText={newText => setAmount(newText)}
@@ -70,17 +68,12 @@ export default function GiveNewRAndR() {
             placeholder="Amount"
             value={data.amount}
           />
-          <TextInput
-            onChangeText={newText => setAddDate(newText)}
-            style={styles.input}
-            placeholder="Add Date (yyyy-mm-dd)"
-            value={data.addedDate}
-          />
+
           <TextInput
             onChangeText={newText => setExpDate(newText)}
             style={styles.input}
             placeholder="Expire Date (yyyy-mm-dd)"
-            value={data.expireDate}
+            value={data.expDate}
           />
 
           <TouchableOpacity style={styles.background} onPress={GiveRAndR}>
@@ -90,7 +83,7 @@ export default function GiveNewRAndR() {
           <TouchableOpacity
             style={styles.background}
             onPress={() => {
-              navigation.navigate('AddRandR');
+              navigation.navigate('AddOPD');
             }}>
             <Text style={styles.textB}>Cancel</Text>
           </TouchableOpacity>
@@ -156,3 +149,4 @@ const styles = StyleSheet.create({
     // borderTopRightRadius: 60,
   },
 });
+

@@ -12,6 +12,7 @@ import {
 import {useTheme} from 'react-native-paper';
 import CustomButton from '../../Components/Button';
 import {Picker} from '@react-native-picker/picker';
+import {RadioButton} from 'react-native-paper';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -22,6 +23,8 @@ export default function LoginScreen({navigation}) {
 
   const [userName, setUserName] = useState('');
   const [selectedValue, setSelectedValue] = useState('User');
+
+  const [checked, setChecked] = React.useState('');
   
   const {colors} = useTheme();
 
@@ -59,18 +62,24 @@ export default function LoginScreen({navigation}) {
 
         <View style={{ marginTop:20,marginBottom:10}}>
           <Text style={{width: 200,marginRight:50,marginLeft:50}}>Send Verification Code To : </Text>
-          <Picker
-            selectedValue={selectedValue}
-            style={{height: 50, width: 180,marginRight:50,marginLeft:50,borderColor:'#000'}}
-            //mode={"dialog"}
-            onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-            //onValueChange={(itemValue, itemIndex) => console.log(itemValue)}
-          >
-            <Picker.Item label="E-mail" value="E-mail" color="orange" />
-            <Picker.Item label="Mobile Number" value="Mobile Number" color="orange" />
-            
-          </Picker>
+          <View style={{flexDirection:'row'}}>
+          <RadioButton.Item
+            label="Email"
+            value="Email"
+            status={checked === 'Email' ? 'checked' : 'unchecked'}
+            onPress={() => setChecked('Email')}
+          />
+
+          <RadioButton.Item
+            label="Mobile Number"
+            value="Mobile Number"
+            status={checked === 'Mobile Number' ? 'checked' : 'unchecked'}
+            onPress={() => setChecked('Mobile Number')}
+          />
+
+          <Text>{console.log(checked)}</Text>
         </View>
+      </View>
 
         <View style={styles.row}>
           <View style={{flexDirection: 'row',flex:1}}>
@@ -144,12 +153,13 @@ const styles = StyleSheet.create({
   },
   footer: {
     alignItems: 'center',
-    flex: 5,
+    flex: 1,
     backgroundColor: '#fff',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    // borderTopLeftRadius: 30,
+    // borderTopRightRadius: 30,
     paddingHorizontal: 20,
     paddingVertical: 30,
+    borderRadius:30
   },
 
   topic: {
