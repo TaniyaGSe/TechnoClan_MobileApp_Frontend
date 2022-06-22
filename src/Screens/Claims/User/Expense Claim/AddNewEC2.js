@@ -8,9 +8,11 @@ import {
 import { TextInput } from 'react-native-gesture-handler';
 import {Picker} from "@react-native-picker/picker";
 import { useNavigation } from '@react-navigation/native'; 
+import axios from "axios";
 
 export default function AddNewE_Claim2(){
-
+  
+  const [emp_id,setEmp_id] = useState("");
   const [bu_dept,setBu_Dept] = useState("");
   const [ project,setProject]=useState("");
   const [ extension_No,setExtension_No]=useState("");
@@ -23,60 +25,52 @@ export default function AddNewE_Claim2(){
 
   const navigation=useNavigation();
 
-  // const submit = () => {
-  //   navigation.navigate("View the new claim",{
-  //     buDept:bu_dept,
-  //     project:project,
-  //     extensionNo:extension_No,
-  //     customer:customer,
-  //     location:location,
-  //     particulars:particulars,
-  //     amount:amount,
-  //   })
-  // }
-
-  async function claimExpense() {
-    if(isNaN(extension_No)){
-      alert(" Not a number");
-      //this.setState({ email: text })
-      return false;
-      // Its not a number
-    }
-    try {
-      fetch('http://10.0.2.2:8080/api/v1/expenseclaim/updateEClaimById/2', {
-  method: 'PUT',
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    bu_dept,
-    project,
-    extension_No,
-    customer,
-    location,
-    particulars,
-    amount,
-  })
- 
-})
-
-alert('Expense updated successfully')
-navigation.navigate('Expense Claim' )
-    } catch (error) {
-      console.error(error);
-    }
-
-	}
-
+  async function updateClaim() {
+    var axios = require('axios');
+  
+    var config = {
+      method: 'put',
+      url: 'http://10.0.2.2:8080/api/v1/expenseclaim/updateExpenseClaim/6',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        // emp_id,
+        bu_dept,
+        project,
+        extension_No,
+        customer,
+        location,
+        particulars,
+        amount,
+      })
+    };
+    
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+      alert("Updated successfully!")
+      navigation.navigate(Expense_Claim)
+    
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    console.log('ggggg');
+  }
+  
     return(
       <View style={styles.body}>
         <View style={styles.header}>
         <Text style={styles.text}>
-        Add a new claim
+        Edit Expense claim
         </Text>
         </View>
         <View style={styles.container}>
+        {/* <TextInput  onChangeText={newText => setEmp_id(newText)} style={styles.input}
+        placeholder='Expense ID'
+        value={emp_id}
+        /> */}
         <TextInput  onChangeText={newText => setBu_Dept(newText)} style={styles.input}
         placeholder='BU/Dept'
         value={bu_dept}
@@ -105,7 +99,7 @@ navigation.navigate('Expense Claim' )
         placeholder='Amount'
         value={amount}
         />
-        <Picker style={styles.picker}
+        {/* <Picker style={styles.picker}
           selectedValue={Enable}
           mode={"dialog"}
           onValueChange={(itemValue) => setEnable(itemValue)}
@@ -113,10 +107,10 @@ navigation.navigate('Expense Claim' )
         <Picker.Item label="Billable" value="Bill" />
         <Picker.Item label="Non-Billable" value="Non" />
         <Picker.Item label="Fixed-Price" value="Fixed" />
-        </Picker>
+        </Picker> */}
       
         <TouchableOpacity style={styles.background}
-          onPress={claimExpense}>
+          onPress={updateClaim}>
         <Text style={styles.textB}>
           Submit
         </Text>

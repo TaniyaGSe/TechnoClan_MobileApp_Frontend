@@ -1,39 +1,32 @@
-import React , {useState} from 'react'; //usestate for hooks
+import React , {useState}from 'react'; //usestate for hooks
 import {
   StyleSheet,
   Text,
   View,
+  Button,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  Keyboard
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import {Picker} from "@react-native-picker/picker";
-import { useNavigation } from '@react-navigation/native'; 
+import { useNavigation } from '@react-navigation/native';
 
-export default function AddNewE_Claim(){
+export default function AddNew_RAndR(){
 
-  const [bu_dept,setBu_Dept] = useState("");
-  const [ project,setProject]=useState("");
-  const [ extension_No,setExtension_No]=useState("");
-  const [ customer,setCustomer]=useState("");
+  const [extension_no,setExtension_not] = useState("");
+  const [customer ,setCustomer]=useState("");
   const [ location,setLocation]=useState("");
   const [ particulars,setParticulars]=useState("");
   const [ amount,setAmount]=useState("");
 
-  const [Enable , setEnable]  = useState("Billability");
 
   const navigation=useNavigation();
 
-  async function claimExpense() {
-    if (!bu_dept.trim()) {
-      alert('Please Enter Bu/Dep');
-      return;
-    }
-    if (!project.trim()) {
-      alert('Please Enter project');
-      return;
-    }
-    if (!extension_No.trim()) {
-      alert('Please Enter extension number');
+  async function claimRAndR() {
+    var axios = require('axios');
+    
+    if (!extension_no.trim()) {
+      alert('Please Enter Extension no');
       return;
     }
     if (!customer.trim()) {
@@ -52,8 +45,9 @@ export default function AddNewE_Claim(){
       alert('Please Enter amount');
       return;
     }
+  
     //not a number
-    // if(isNaN(extension_No)){
+    // if(isNaN(extension_no)){
     //   alert(" Not a number");
     //   //this.setState({ email: text })
     //   return false;
@@ -65,54 +59,71 @@ export default function AddNewE_Claim(){
     //   return false;
     //   // Its not a number
     // }
+//   try {
+//     fetch('http://10.0.2.2:8080/api/v3/randr/saveRAndR', {
+//    method: 'POST',
+//    headers: {
+//         Accept: 'application/json',
+//         'Content-Type': 'application/json'
+//             },
+//    body: JSON.stringify({
+//       extension_no,
+//       customer,
+//       location,
+//       particulars,
+//       amount,
+//   })
 
-    try {
-      fetch('http://10.0.2.2:8080/api/v1/expenseclaim/saveExpenseClaim', {
-  method: 'POST',
-  headers: {
-    Accept: 'application/json',
+// })
+alert('R And R claimed successfully')
+navigation.navigate('Reward And Recognition' )
+
+var config = {
+  method: 'post',
+  url: 'http://10.0.2.2:8080/api/v4/randradmin/saveAdminRAndR',
+  headers: { 
     'Content-Type': 'application/json'
   },
-  body: JSON.stringify({
-    bu_dept,
-    project,
-    extension_No,
-    customer,
-    location,
-    particulars,
-    amount,
+  data : JSON.stringify({
+          extension_no,
+          customer,
+          location,
+          particulars,
+          amount,
   })
- 
+};
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
 })
+.catch(function (error) {
+  console.log(error);
+});
+}
 
-alert('Expense claimed successfully')
-navigation.navigate('Expense Claim' )
-    } catch (error) {
-      console.error(error);
-    }
 
-	}
+      // } catch (error) {
+      //      console.error(error);
+      // }
+
 
     return(
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} 
+      accessible={false}>
       <View style={styles.body}>
         <View style={styles.header}>
         <Text style={styles.text}>
-        Add a new claim
+        Add a new R&R
         </Text>
         </View>
         <View style={styles.container}>
-        <TextInput  onChangeText={newText => setBu_Dept(newText)} style={styles.input}
-        placeholder='BU/Dept'
-        value={bu_dept}
-        />
-        <TextInput  onChangeText={newText => setProject(newText)} style={styles.input}
-        placeholder='Project'
-        value={project}
-        />
-        <TextInput  onChangeText={newText => setExtension_No(newText)} style={styles.input}
-        placeholder='Extension No'
-        value={extension_No}
-        />
+
+        <TextInput  onChangeText={newText => setExtension_not(newText)} style={styles.input}
+        placeholder='Extension no'
+        keyboardType='numeric'
+        value={extension_no}
+        />  
         <TextInput  onChangeText={newText => setCustomer(newText)} style={styles.input}
         placeholder='Customer'
         value={customer}
@@ -127,39 +138,29 @@ navigation.navigate('Expense Claim' )
         />
         <TextInput  onChangeText={newText => setAmount(newText)} style={styles.input}
         placeholder='Amount'
+        keyboardType='numeric'
         value={amount}
         />
-        <Picker style={styles.picker}
-          selectedValue={Enable}
-          mode={"dialog"}
-          onValueChange={(itemValue) => setEnable(itemValue)}
-         >
-        <Picker.Item label="Billable" value="Bill" />
-        <Picker.Item label="Non-Billable" value="Non" />
-        <Picker.Item label="Fixed-Price" value="Fixed" />
-        </Picker>
-      
         <TouchableOpacity style={styles.background}
-          onPress={claimExpense}>
+          onPress={claimRAndR} >
         <Text style={styles.textB}>
           Submit
         </Text>
         </TouchableOpacity>
-
-        </View>
       </View>
+      </View>
+      </TouchableWithoutFeedback>
     );
   }
+  
 
   const styles = StyleSheet.create({
-  
     input:{
       height: 40,
       width:200,
       margin: 5,
-      borderRadius:10,
       padding: 10,
-      // marginHorizontal:150,
+      borderRadius:10,
       marginLeft: '25%',
       marginBottom: 10,
       backgroundColor:'#F89880',
@@ -167,7 +168,8 @@ navigation.navigate('Expense Claim' )
     background:{
       backgroundColor: '#F89880',
       marginBottom:20,
-      marginTop:20,
+      marginTop:40,
+      // margin:0,
       marginLeft: '25%',
       width:'50%',
       height: '10%',
@@ -202,17 +204,10 @@ navigation.navigate('Expense Claim' )
       color:'#000000',
     },
     container:{
-      flex:5,
+      flex:3,
       backgroundColor:'#000000',
-      marginTop:10,
+      // borderTopLeftRadius: 60,
+      // borderTopRightRadius: 60,
     },
-    picker:{
-      height:1,
-      width:200,
-      marginLeft: '25%',
-      marginBottom: 10,
-      backgroundColor:'#F89880',
-    },
-  
   })
   

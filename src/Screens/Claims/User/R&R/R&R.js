@@ -3,6 +3,7 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
@@ -15,21 +16,41 @@ export default function RAndR({navigation}){
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  const getRAndRs = async () => {
-     try {
-      const response = await fetch('http://10.0.2.2:8080/api/v3/randr/getRAndRs');
-      const json = await response.json();
-      setData(json);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  }
+  const getRAndRs = async  () => {
 
-  useEffect(() => {
+    Alert.alert(
+      'Alert',
+      'Edit or Delete?',
+      [
+        {text: 'cancel'},
+        {text: 'Edit',  onPress: () => navigation.navigate('Edit RR')},
+        {text: 'Delete',onPress: () => alert('Do you want to delete the R&R?')},
+      ]
+    );
+
+    var axios = require('axios');
+    
+     var config = {
+     method: 'get',
+     url: 'http://10.0.2.2:8080/api/v3/randr/getRAndRs',
+     headers: { 
+    'Content-Type': 'application/json'
+    },
+   //data : data
+   };
+
+    axios(config).then(function (response) {
+    console.log(JSON.stringify(response.data));
+    setData(response.data);
+     // setData(response.data);
+   }).catch(function (error) {
+   console.log(error);
+    });
+    }
+
+    useEffect(() => {
     getRAndRs();
-  }, []);
+     }, []);
 
     return(
       <View style={styles.body}>
@@ -39,20 +60,21 @@ export default function RAndR({navigation}){
       </Text>
       </View>
       <View style={styles.container}>
-      {isLoading ? <ActivityIndicator/> : (
+      {/* {isLoading ? <ActivityIndicator/> : ( */}
         <FlatList
           data={data}
           keyExtractor={({ id }, index) => id}
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.row}>
-            {/* // onPress={()=>{
-            //   navigation.navigate('Edit OPD');
-            // }} */}
+            <TouchableOpacity style={styles.row}
+            onPress={getRAndRs}>
             <FontAwesome5 
              name={'star'}
              size={30}
              color={'#F89880'}
             />
+            <Text style={styles.rowText}>
+            R and R ID:{item.randrid}
+            </Text>
             <Text style={styles.rowText}>
             Extension No:{item.extension_no}
             </Text>
@@ -71,7 +93,7 @@ export default function RAndR({navigation}){
             </TouchableOpacity>
           )}
         />
-      )}
+      {/* )} */}
          <TouchableOpacity style={styles.button} 
           onPress={()=>{
           navigation.navigate('Add new R And R');

@@ -3,6 +3,7 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
@@ -10,26 +11,44 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { ActivityIndicator, FlatList, Text,} from 'react-native';
 
 
-export default function OPD({navigation}){
+export default function OPD_Manager({navigation}){
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  const getOPDs = async () => {
-     try {
-      const response = await fetch('http://10.0.2.2:8080/api/v2/opd/getOPDs');
-      const json = await response.json();
-      setData(json);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  }
+  const getExpenseClaims = async  () => {
+    var axios = require('axios');
+    
+     var config = {
+     method: 'get',
+     url: 'http://10.0.2.2:8080/api/v2/opd/getOPDs',
+     headers: { 
+    'Content-Type': 'application/json'
+    },
+  //data : data
+   };
 
-  useEffect(() => {
-    getOPDs();
-  }, []);
+    axios(config).then(function (response) {
+    console.log(JSON.stringify(response.data));
+    setData(response.data);
+     // setData(response.data);
+  }).catch(function (error) {
+  console.log(error);
+    });
+    }
+    Alert.alert(
+      'Alert',
+      'Do you want to accept the OPD',
+      [
+        {text: 'cancel'},
+        {text: 'NO'},
+        {text: 'YES'},
+      ]
+    );
+
+    useEffect(() => {
+    getExpenseClaims();
+     }, []);
 
     return(
       <View style={styles.body}>
@@ -39,20 +58,21 @@ export default function OPD({navigation}){
       </Text>
       </View>
       <View style={styles.container}>
-      {isLoading ? <ActivityIndicator/> : (
+      {/* {isLoading ? <ActivityIndicator/> : ( */}
         <FlatList
           data={data}
           keyExtractor={({ id }, index) => id}
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.row}>
-            {/* // onPress={()=>{
-            //   navigation.navigate('Edit OPD');
-            // }} */}
+            <TouchableOpacity style={styles.row}
+            onPress={getExpenseClaims}>
           <FontAwesome5 
             name={'hospital-alt'}
             size={30}
             color={'#ffffff'}
           />
+            <Text style={styles.rowText}>
+            OPD ID:{item.opdid}
+            </Text>
             <Text style={styles.rowText}>
             Description:{item.description}
             </Text>
@@ -65,39 +85,12 @@ export default function OPD({navigation}){
             </TouchableOpacity>
           )}
         />
-      )}
-         <TouchableOpacity style={styles.button} 
-        onPress={()=>{
-          navigation.navigate('Claim a new OPD');
-        }}
-        >
-          <FontAwesome5 style={styles.plus}
-          name={'plus'}
-          size={30}
-          color={'#000000'}
-          />
-        </TouchableOpacity>
       </View>
       </View>
     )
   }
 
   const styles = StyleSheet.create({
-   
-    button:{
-      width:60,
-      height:60,
-      borderRadius:30,
-      backgroundColor:'#F89880',
-      justifyContent:'center',
-      position:'absolute',
-      bottom:25,
-      right:5,
-      elevation:5,
-    },
-    plus:{
-      left:15,
-    },
     body:{
       flex:1,
       // justifyContent:'center',

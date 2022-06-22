@@ -7,11 +7,11 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 import LoginScreen from './Screens/Front-Screens/Login_Screen';
 import SignUpScreen from './Screens/Front-Screens/SignUp_Screen';
-import WelcomeScreen from './Screens/Front-Screens/Welcome_Screen';
+// import WelcomeScreen from './Screens/Front-Screens/Welcome_Screen';
 import ForgetPass1Screen from './Screens/Front-Screens/ForgetPass1_Screen';
 import ForgetPass2Screen from './Screens/Front-Screens/ForgetPass2_Screen';
-import NotificationScreen from './Screens/Front-Screens/Notification';
-import SettingScreen from './Screens/Front-Screens/Settings';
+// import NotificationScreen from './Screens/Front-Screens/Notification';
+// import SettingScreen from './Screens/Front-Screens/Settings';
 
 import AdminScreen from './Screens/Claims/Admin/AdminScreen';
 import ManagerScreen from './Screens/Claims/Manager/ManagerScreen';
@@ -21,11 +21,13 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer independent={true}>
+    // <NavigationContainer independent={true}>
+    <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
           header: () => null,
         }}>
+        
         <Stack.Screen
           name="Screen-Login"
           component={LoginScreen}
@@ -36,7 +38,7 @@ function App() {
 
         <Stack.Screen name="Screen-SignUp" component={SignUpScreen} />
 
-        <Stack.Screen name="Screen-Welcome" component={Home} />
+        {/* Stack.Screen name="Screen-Welcome" component={Home} /> */}
 
         <Stack.Screen name="Screen-ForgetPass1" component={ForgetPass1Screen} />
 

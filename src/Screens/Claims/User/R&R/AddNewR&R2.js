@@ -3,118 +3,146 @@ import {
   StyleSheet,
   Text,
   View,
+  Button,
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native'; 
+import { useNavigation } from '@react-navigation/native';
 
-export default function Add_OPD(){
+export default function AddNew_RAndR2(){
 
-  // const DissmissKeyboard = ({children}) =>(
-  //   <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
-  //     {children}
-  //   </TouchableWithoutFeedback>
-  // );
+  const [extension_no,setExtension_not] = useState("");
+  const [customer ,setCustomer]=useState("");
+  const [ location,setLocation]=useState("");
+  const [ particulars,setParticulars]=useState("");
+  const [ amount,setAmount]=useState("");
 
-  const [description,setDescription] = useState("");
-  const [receiptno,setReceiptno]=useState("");
-  const [opdamount,setOpdamount]=useState("");
 
   const navigation=useNavigation();
 
-  async function claimOPD() {
+  async function claimRAndR() {
     var axios = require('axios');
-    if (!description.trim()) {
+    
+    if (!extension_no.trim()) {
       alert('Please Enter Extension no');
       return;
     }
-    if (!receiptno.trim()) {
+    if (!customer.trim()) {
       alert('Please Enter customer name');
       return;
     }
-    if (!opdamount.trim()) {
+    if (!location.trim()) {
       alert('Please Enter location');
       return;
     }
-    // if(isNaN(opd_amount)){
+    if (!particulars.trim()) {
+      alert('Please Enter particulars');
+      return;
+    }
+    if (!amount.trim()) {
+      alert('Please Enter amount');
+      return;
+    }
+  
+    //not a number
+    // if(isNaN(extension_no)){
     //   alert(" Not a number");
     //   //this.setState({ email: text })
     //   return false;
     //   // Its not a number
     // }
-
+    // if(isNaN(amount)){
+    //   alert(" Not a number");
+    //   //this.setState({ email: text })
+    //   return false;
+    //   // Its not a number
+    // }
 //   try {
-//     fetch('http://10.0.2.2:8080/api/v2/opd/saveOPD', {
+//     fetch('http://10.0.2.2:8080/api/v3/randr/saveRAndR', {
 //    method: 'POST',
 //    headers: {
 //         Accept: 'application/json',
 //         'Content-Type': 'application/json'
 //             },
 //    body: JSON.stringify({
-//       description,
-//       receiptno,
-//       opdamount,
+//       extension_no,
+//       customer,
+//       location,
+//       particulars,
+//       amount,
 //   })
 
 // })
+alert('R And R claimed successfully')
+navigation.navigate('Reward And Recognition' )
+
+var config = {
+  method: 'post',
+  url: 'http://10.0.2.2:8080/api/v4/randradmin/saveAdminRAndR',
+  headers: { 
+    'Content-Type': 'application/json'
+  },
+  data : JSON.stringify({
+          extension_no,
+          customer,
+          location,
+          particulars,
+          amount,
+  })
+};
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+  console.log(error);
+});
+}
 
 
       // } catch (error) {
       //      console.error(error);
       // }
-      alert('OPD claimed successfully')
-      navigation.navigate('OPD' )
-      var config = {
-        method: 'post',
-        url: 'http://10.0.2.2:8080/api/v2/opd/saveOPD',
-        headers: { 
-          'Content-Type': 'application/json'
-        },
-        data : JSON.stringify({
-              description,
-              receiptno,
-              opdamount,
-        })
-      };
-      
-      axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-      }
-      
+
+
     return(
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} 
       accessible={false}>
       <View style={styles.body}>
         <View style={styles.header}>
         <Text style={styles.text}>
-        Add a new OPD
+        Edit R&R
         </Text>
         </View>
         <View style={styles.container}>
 
-        <TextInput  onChangeText={newText => setDescription(newText)} style={styles.input}
-        placeholder='Description'
-        value={description}
+        <TextInput  onChangeText={newText => setExtension_not(newText)} style={styles.input}
+        placeholder='Extension no'
+        keyboardType='numeric'
+        value={extension_no}
         />  
-        <TextInput  onChangeText={newText => setReceiptno(newText)} style={styles.input}
-        placeholder='Receipt No'
-        keyboardType='numeric'
-        value={receiptno}
+        <TextInput  onChangeText={newText => setCustomer(newText)} style={styles.input}
+        placeholder='Customer'
+        value={customer}
         />
-        <TextInput  onChangeText={newText => setOpdamount(newText)} style={styles.input}
+        <TextInput  onChangeText={newText => setLocation(newText)} style={styles.input}
+        placeholder='Location'
+        value={location}
+        />
+        <TextInput  onChangeText={newText => setParticulars(newText)} style={styles.input}
+        placeholder='Particulars'
+        value={particulars}
+        />
+        <TextInput  onChangeText={newText => setAmount(newText)} style={styles.input}
         placeholder='Amount'
-        value={opdamount}
         keyboardType='numeric'
+        value={amount}
         />
         <TouchableOpacity style={styles.background}
-          onPress={claimOPD} >
+          onPress={claimRAndR} >
         <Text style={styles.textB}>
           Submit
         </Text>
@@ -124,9 +152,9 @@ export default function Add_OPD(){
       </TouchableWithoutFeedback>
     );
   }
+  
 
   const styles = StyleSheet.create({
-  
     input:{
       height: 40,
       width:200,

@@ -5,24 +5,24 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CustomButton from '../../Components/Button';
 
 export default function HomeScreen({navigation}) {
-    const onPressHandlerExpense = () => {
-        //navigation.navigate('Screen-Exp');
-        navigation.navigate('Expense Claim');
-      }
+    // const onPressHandlerExpense = () => {
+    //     //navigation.navigate('Screen-Exp');
+    //     navigation.navigate('Expense Claim');
+    //   }
   
-    const onPressHandlerOPD = () => {
-      //navigation.navigate('Screen-OPD');
-      navigation.navigate('OPD');
-    }
+    // const onPressHandlerOPD = () => {
+    //   //navigation.navigate('Screen-OPD');
+    //   navigation.navigate('OPD');
+    // }
 
-    const onPressHandlerRandR = () => {
-        //navigation.navigate('Screen-RandR');
-        navigation.navigate('Reward And Recognition');
-      }
+    // const onPressHandlerRandR = () => {
+    //     //navigation.navigate('Screen-RandR');
+    //     navigation.navigate('Reward And Recognition');
+    //   }
 
-    const onPressHandlerLogOut = () => {
+    // const onPressHandlerLogOut = () => {
 
-    }
+    // }
 
     
     

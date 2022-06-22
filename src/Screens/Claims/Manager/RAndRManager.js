@@ -3,101 +3,100 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
-import { ActivityIndicator, FlatList, Text,} from 'react-native';
+import {FlatList, Text,} from 'react-native';
 
 
-export default function OPD({navigation}){
+export default function RAndRManager({navigation}){
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const getExpenseClaims = async  () => {
+    var axios = require('axios');
+    
+     var config = {
+     method: 'get',
+     url: 'http://10.0.2.2:8080/api/v3/randr/getRAndRs',
+     headers: { 
+    'Content-Type': 'application/json'
+    },
+   //data : data
+   };
 
-  const getOPDs = async () => {
-     try {
-      const response = await fetch('http://10.0.2.2:8080/api/v2/opd/getOPDs');
-      const json = await response.json();
-      setData(json);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
+    axios(config).then(function (response) {
+    console.log(JSON.stringify(response.data));
+    setData(response.data);
+     // setData(response.data);
+   }).catch(function (error) {
+   console.log(error);
+    });
     }
-  }
 
-  useEffect(() => {
-    getOPDs();
-  }, []);
+    Alert.alert(
+      'Alert',
+      'Do you want to accept the R&R',
+      [
+        {text: 'cancel'},
+        {text: 'NO'},
+        {text: 'YES'},
+        // {text: 'YES', onPress: () => console.warn('YES Pressed')},
+      ]
+    );
+
+    useEffect(() => {
+    getExpenseClaims();
+     }, []);
 
     return(
       <View style={styles.body}>
       <View style={styles.header}>
       <Text style={styles.text}>
-        Claimed OPDs
+        Claimed R&Rs
       </Text>
       </View>
       <View style={styles.container}>
-      {isLoading ? <ActivityIndicator/> : (
+      {/* {isLoading ? <ActivityIndicator/> : ( */}
         <FlatList
           data={data}
           keyExtractor={({ id }, index) => id}
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.row}>
-            {/* // onPress={()=>{
-            //   navigation.navigate('Edit OPD');
-            // }} */}
-          <FontAwesome5 
-            name={'hospital-alt'}
-            size={30}
-            color={'#ffffff'}
-          />
+            <TouchableOpacity style={styles.row} onPress={getExpenseClaims}>
+            <FontAwesome5 
+             name={'star'}
+             size={30}
+             color={'#F89880'}
+            />
             <Text style={styles.rowText}>
-            Description:{item.description}
+            R and R ID:{item.randrid}
             </Text>
             <Text style={styles.rowText}>
-            Receipt No:{item.receiptno}
+            Extension No:{item.extension_no}
             </Text>
             <Text style={styles.rowText}>
-            amount:{item.opdamount}
+            Customer:{item.customer}
+            </Text>
+            <Text style={styles.rowText}>
+            Location:{item.location}
+            </Text>
+            <Text style={styles.rowText}>
+            Particulars:{item.particulars}
+            </Text>
+            <Text style={styles.rowText}>
+            Amount:{item.amount}
             </Text>
             </TouchableOpacity>
           )}
         />
-      )}
-         <TouchableOpacity style={styles.button} 
-        onPress={()=>{
-          navigation.navigate('Claim a new OPD');
-        }}
-        >
-          <FontAwesome5 style={styles.plus}
-          name={'plus'}
-          size={30}
-          color={'#000000'}
-          />
-        </TouchableOpacity>
       </View>
       </View>
     )
   }
 
   const styles = StyleSheet.create({
-   
-    button:{
-      width:60,
-      height:60,
-      borderRadius:30,
-      backgroundColor:'#F89880',
-      justifyContent:'center',
-      position:'absolute',
-      bottom:25,
-      right:5,
-      elevation:5,
-    },
-    plus:{
-      left:15,
-    },
     body:{
       flex:1,
       // justifyContent:'center',

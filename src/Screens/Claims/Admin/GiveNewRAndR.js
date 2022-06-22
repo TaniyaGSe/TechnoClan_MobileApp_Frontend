@@ -3,104 +3,93 @@ import {
   StyleSheet,
   Text,
   View,
+  Button,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  Keyboard
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native'; 
+import { useNavigation } from '@react-navigation/native';
 
-export default function Add_OPD(){
+export default function GiveNewRAndR(){
 
-  // const DissmissKeyboard = ({children}) =>(
-  //   <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
-  //     {children}
-  //   </TouchableWithoutFeedback>
-  // );
+  const [extension_no,setExtension_not] = useState("");
+  const [customer ,setCustomer]=useState("");
+  const [ location,setLocation]=useState("");
+  const [ particulars,setParticulars]=useState("");
+  const [ amount,setAmount]=useState("");
 
-  const [description,setDescription] = useState("");
-  const [receiptno,setReceiptno]=useState("");
-  const [opdamount,setOpdamount]=useState("");
 
   const navigation=useNavigation();
 
-  async function claimOPD() {
-    if (!description.trim()) {
-      alert('Please Enter Extension no');
+  async function GiveRAndR() {
+    var axios = require('axios');
+    
+    if (!employee_id.trim()) {
+     alert('Please Enter Extension no');
       return;
-    }
-    if (!receiptno.trim()) {
+    } 
+    if (!randramount.trim()) {
       alert('Please Enter customer name');
       return;
     }
-    if (!opdamount.trim()) {
-      alert('Please Enter location');
-      return;
-    }
-    // if(isNaN(opd_amount)){
-    //   alert(" Not a number");
-    //   //this.setState({ email: text })
-    //   return false;
-    //   // Its not a number
-    // }
 
-  try {
-    fetch('http://10.0.2.2:8080/api/v2/opd/saveOPD', {
-   method: 'POST',
-   headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-            },
-   body: JSON.stringify({
-      description,
-      receiptno,
-      opdamount,
+alert('R And R claimed successfully')
+navigation.navigate('Give new R And R' )
+
+var config = {
+  method: 'post',
+  url: 'http://10.0.2.2:8080/api/v3/randr/saveRAndR',
+  headers: { 
+    'Content-Type': 'application/json'
+  },
+  data : JSON.stringify({
+    employee_id,
+    randramount,
   })
+};
 
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
 })
-
-     alert('OPD claimed successfully')
-        navigation.navigate('OPD' )
-      } catch (error) {
-           console.error(error);
-      }
-
+.catch(function (error) {
+  console.log(error);
+});
 }
-
     return(
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} 
+      accessible={false}>
       <View style={styles.body}>
         <View style={styles.header}>
         <Text style={styles.text}>
-        Add a new OPD
+        Give a new R&R
         </Text>
         </View>
         <View style={styles.container}>
 
-        <TextInput  onChangeText={newText => setDescription(newText)} style={styles.input}
-        placeholder='Description'
-        value={description}
-        />  
-        <TextInput  onChangeText={newText => setReceiptno(newText)} style={styles.input}
-        placeholder='Receipt No'
-        // keyboardType='numeric'
-        value={receiptno}
+        <TextInput  onChangeText={newText => setCustomer(newText)} style={styles.input}
+        placeholder='Employee ID'
+        value={employee_id}
         />
-        <TextInput  onChangeText={newText => setOpdamount(newText)} style={styles.input}
+        <TextInput  onChangeText={newText => setLocation(newText)} style={styles.input}
         placeholder='Amount'
-        value={opdamount}
-        // keyboardType='numeric'
+        value={randramount}
         />
         <TouchableOpacity style={styles.background}
-          onPress={claimOPD} >
+          onPress={GiveRAndR} >
         <Text style={styles.textB}>
           Submit
         </Text>
         </TouchableOpacity>
       </View>
       </View>
+      </TouchableWithoutFeedback>
     );
   }
+  
 
   const styles = StyleSheet.create({
-  
     input:{
       height: 40,
       width:200,

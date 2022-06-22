@@ -40,20 +40,11 @@ export default function LoginScreen({navigation}) {
       method: 'post',
       url: 'http://10.0.2.2:8080/api/auth/signin',
       headers: {
-         
-        //'Authorization': 'Bearer', 
+          
         'Content-Type': 'application/json'
       },
       data: data,
     };
-
-    // axios(config)
-    //   .then(function (response) {
-    //     console.log(JSON.stringify(response.data));
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
 
     axios(config)
       .then(function (response) {
@@ -70,33 +61,20 @@ export default function LoginScreen({navigation}) {
             AsyncStorage.setItem("roles",roles);
             console.log(JSON.stringify(response.data)) 
 
-            //navigation.navigate('Screen-Welcome');
-            
-            // if(AsyncStorage.getItem('roles')===["ROLE_USER"]){
-            //   navigation.navigate('Screen-Welcome');
-            // }
-            // if(AsyncStorage.getItem("roles")=="ROLE_ADMIN"){
-            //   navigation.navigate('AdminScreen');
-            // }
-            // if(AsyncStorage.getItem("roles")=="ROLE_MANAGER"){
-            //   navigation.navigate('ManagerScreen');
-            // }
-
             AsyncStorage.getItem('roles')
                 .then(value => {
                     if (value === "ROLE_USER") {
                       navigation.navigate('UserScreen');
+                      console.log(roles)                                       
+                    }else if(value === "ROLE_ADMIN"){
+                      navigation.navigate('AdminScreen');
                       console.log(roles)
-                    }                    
-                  //   }else if(value === "ROLE_ADMIN"){
-                  //     navigation.navigate('AdminScreen');
-                  //     console.log(roles)
-                  //   }else if(value === "ROLE_MANAGER"){
-                  //     navigation.navigate('ManagerScreen');
-                  //     console.log(roles)
-                  // }
+                    }else if(value === "ROLE_MANAGER"){
+                      navigation.navigate('ManagerScreen');
+                      console.log(roles)
+                  }
                 })
-        //console.log(JSON.stringify(response.data));
+
       })
       .catch(function (error) {
         console.log(error);
